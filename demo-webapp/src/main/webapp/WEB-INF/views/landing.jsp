@@ -2,11 +2,11 @@
 <body>
 <p>
     <b>To solve the CAPTCHA</b>
-    <ul>
+<ul>
     <li>Click on the black characters similar to the blue ones and hit submit</li>
     <li>To clear your selection, click on reset (before you submit)</li>
     <li>You can submit solution for a CAPTCHA only once</li>
-    </ul>
+</ul>
 </p>
 <form id="pixelcaptcha_form">
     <br/>
@@ -30,10 +30,11 @@
                             <input type="button" name="New" value="New Captcha" id="new_captcha_button"/>
                         </td>
                         <td align="center">
-                            <input type="button" name="Submit" value="Submit Solution" id="pixelcaptcha_submit_button"></input>
+                            <input type="button" name="Submit" value="Submit Solution"
+                                   id="pixelcaptcha_submit_button"></input>
                         </td>
                         <td align="center">
-                            <input type="button"  name="Reset" value="Reset Clicks" id="reset_solution_button"/>
+                            <input type="button" name="Reset" value="Reset Clicks" id="reset_solution_button"/>
                         </td>
                     </tr>
                     <tr>
@@ -130,8 +131,8 @@
 
                 <table frame="box" width="300">
                     <tr>
-                        <td id="info_label"> Captcha Config </td>
-                        <td id="info_content"> </td>
+                        <td id="info_label"> Captcha Config</td>
+                        <td id="info_content"></td>
                     </tr>
                 </table>
             </td>

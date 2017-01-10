@@ -13,24 +13,24 @@ import com.salesforce.pixelcaptcha.interfaces.Captcha;
 
 public class PixelCaptcha implements Captcha {
 
-	private BufferedImage image;
-	private String identifier;
-	
-	
-	public PixelCaptcha(BufferedImage image, String identifier) {
-		super();
-		this.image = image;
-		this.identifier = identifier;
-	}
+    private BufferedImage image;
+    private String identifier;
 
-	@Override
-	public BufferedImage getImage() {
-		return image;
-	}
 
-	@Override
-	public String getIdentifier() {
-		return identifier;
-	}
+    public PixelCaptcha(BufferedImage image, String identifier) {
+        super();
+        this.image = image;
+        this.identifier = identifier;
+    }
+
+    @Override
+    public BufferedImage getImage() {
+        return image;
+    }
+
+    @Override
+    public String getIdentifier() {
+        return identifier;
+    }
 
 }

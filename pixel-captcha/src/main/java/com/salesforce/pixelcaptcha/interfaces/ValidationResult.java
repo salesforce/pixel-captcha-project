@@ -8,7 +8,9 @@
 package com.salesforce.pixelcaptcha.interfaces;
 
 public interface ValidationResult {
-	boolean isPositive();
-	int getResponseCode();
-	String getResponseDetails();
+    boolean isPositive();
+
+    int getResponseCode();
+
+    String getResponseDetails();
 }

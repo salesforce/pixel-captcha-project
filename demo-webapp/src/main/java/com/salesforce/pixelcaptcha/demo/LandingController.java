@@ -34,7 +34,7 @@ import java.util.Properties;
  */
 
 @Controller
-@Scope(value="session")
+@Scope(value = "session")
 public class LandingController {
     private final String ERROR = "{\"status\":\"error\", \"message\": \"An error occurred. Please check the configuration parameters\"}";
     private PixelCaptchaProvider pcp;
@@ -65,10 +65,10 @@ public class LandingController {
 
     private String buildCaptchaJSON(Captcha c) {
         Map<String, String> m = new HashMap<>();
-        m.put("id", c.getIdentifier() );
+        m.put("id", c.getIdentifier());
         m.put("width", Integer.toString(c.getImage().getWidth()));
         m.put("height", Integer.toString(c.getImage().getHeight()));
-        m.put("image", "data:image/png;base64,"+ convertBufferedImageToPngBase64(c.getImage()));
+        m.put("image", "data:image/png;base64," + convertBufferedImageToPngBase64(c.getImage()));
         Gson gson = new Gson();
         return gson.toJson(m);
     }
@@ -94,7 +94,7 @@ public class LandingController {
     public String getConfig() {
         Map<String, Object> m = new HashMap<>();
         Map<String, String> pMap = new HashMap<>();
-        for (final String name: p.stringPropertyNames())
+        for (final String name : p.stringPropertyNames())
             pMap.put(name, p.getProperty(name));
         m.put("configuration", pMap);
         Gson gson = new Gson();
@@ -117,7 +117,7 @@ public class LandingController {
     )
     public String setConfig(@RequestBody CaptchaConfig config) {
 
-        switch(config.getCodePoints()) {
+        switch (config.getCodePoints()) {
             case "0-255":
             case "0-4095":
             case "0-65535":
@@ -126,29 +126,29 @@ public class LandingController {
                 return ERROR;
         }
 
-        if(!(config.getChallengeCount().equals("2") ||
+        if (!(config.getChallengeCount().equals("2") ||
                 config.getChallengeCount().equals("3") ||
-                config.getChallengeCount().equals("4") )) {
+                config.getChallengeCount().equals("4"))) {
             return ERROR;
         }
 
-        if(!(config.getResponseCount().equals("10") ||
+        if (!(config.getResponseCount().equals("10") ||
                 config.getResponseCount().equals("11") ||
-                config.getResponseCount().equals("12") )) {
+                config.getResponseCount().equals("12"))) {
             return ERROR;
         }
 
 
-        if(!(config.getOrientation().equals("horizontal") || config.getOrientation().equals("vertical"))) {
+        if (!(config.getOrientation().equals("horizontal") || config.getOrientation().equals("vertical"))) {
             return ERROR;
         }
 
-        if(!(config.getOrdered().equals("true") || config.getOrdered().equals("false"))) {
+        if (!(config.getOrdered().equals("true") || config.getOrdered().equals("false"))) {
             return ERROR;
         }
 
         p = new Properties();
-        if(config.getOrientation().equals("horizontal")) {
+        if (config.getOrientation().equals("horizontal")) {
             p.setProperty("captchaWidth", "400");
             p.setProperty("captchaHeight", "300");
         } else {
@@ -164,7 +164,7 @@ public class LandingController {
 
         Map<String, Object> m = new HashMap<>();
         Map<String, String> pMap = new HashMap<>();
-        for (final String name: p.stringPropertyNames())
+        for (final String name : p.stringPropertyNames())
             pMap.put(name, p.getProperty(name));
         m.put("status", "success");
         m.put("configuration", pMap);
@@ -177,12 +177,12 @@ public class LandingController {
             value = {"/verifySolution"},
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE)
-    public String verifySolution(@RequestBody ClientSolutionDO clientSolutionDO ) {
+    public String verifySolution(@RequestBody ClientSolutionDO clientSolutionDO) {
         Gson gson = new Gson();
         String solutionAsString = gson.toJson(clientSolutionDO.getSolutionCoordinates()).toString();
         ValidationResult vr = pcp.verify(clientSolutionDO.getPixelcaptchaId(), solutionAsString);
         Map<String, Object> m = new HashMap<>();
-        if(vr.isPositive()) {
+        if (vr.isPositive()) {
             m.put("status", "success");
         } else {
             m.put("status", "failure");

@@ -16,7 +16,8 @@ import static org.junit.Assert.*;
  */
 public class PrintableCharFinderTest {
 
-    PrintableCharFinder pcf ;
+    PrintableCharFinder pcf;
+
     @Before
     public void setUp() throws Exception {
         pcf = PrintableCharFinder.getInstance();
@@ -33,11 +34,11 @@ public class PrintableCharFinderTest {
 
     @Test
     public void testIsPrintableChar() throws Exception {
-        for(int i = 0; i < 30; i++) {
+        for (int i = 0; i < 30; i++) {
             assertFalse(pcf.isPrintableChar(i));
         }
 
-        for(int i = 33; i< 40; i++) {
+        for (int i = 33; i < 40; i++) {
             assertTrue(pcf.isPrintableChar(i));
         }
     }

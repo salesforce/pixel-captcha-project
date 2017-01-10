@@ -18,6 +18,7 @@ import java.util.List;
 /**
  * Stateless class. Given a CaptchaMetadata object, the purpose of this class is to paint a CAPTCHA image and returned
  * it as a BufferedImage
+ *
  * @author Gursev Singh Kalra @ Salesforce.com
  */
 public class CaptchaBuilder {
@@ -29,8 +30,9 @@ public class CaptchaBuilder {
      * NOT USED
      * The calls to this method will have everything in order and no exceptions are expected.
      * No null checks are performed either.
-     *
+     * <p/>
      * This method shall never be invoked directly from outside the class with CaptchaMetadata object instance.
+     *
      * @param captchaMetadata
      * @return
      */
@@ -54,7 +56,7 @@ public class CaptchaBuilder {
 
         g2d.setColor(Color.black);
 
-        for(PointProperty pp : captchaMetadata.getChallenge()) {
+        for (PointProperty pp : captchaMetadata.getChallenge()) {
             drawStringAtPoint(g2d,
                     pp.getColor(),
                     pp.getFont(),
@@ -63,7 +65,7 @@ public class CaptchaBuilder {
                     pp.getPoint().y);
         }
 
-        for(PointProperty pp : captchaMetadata.getSolutionOptions()) {
+        for (PointProperty pp : captchaMetadata.getSolutionOptions()) {
             drawStringAtPoint(g2d,
                     pp.getColor(),
                     pp.getFont(),
@@ -77,15 +79,16 @@ public class CaptchaBuilder {
 
     /**
      * Paints a CAPTCHA as per the CaptchaMetadata object supplied.
+     *
      * @param captchaMetadata CaptchaMetadata object for the CAPTCHA.
      * @return BufferedImage with the new CAPTCHA
      */
 
     public static BufferedImage buildImageWithCollapsedChallenge(CaptchaMetadata captchaMetadata) {
-        if(captchaMetadata == null)
+        if (captchaMetadata == null)
             throw new IllegalArgumentException("CaptchaMetadata object cannot be null");
 
-        if(captchaMetadata.getCaptchaDimension().getWidth() >= captchaMetadata.getCaptchaDimension().getHeight()) {
+        if (captchaMetadata.getCaptchaDimension().getWidth() >= captchaMetadata.getCaptchaDimension().getHeight()) {
             return buildHorizontalCAPTCHA(captchaMetadata);
         } else {
             return buildVerticalCAPTCHA(captchaMetadata);
@@ -113,20 +116,18 @@ public class CaptchaBuilder {
     }
 
     private static int scanForNextHorizontalChallengeXCoordinateForVerticalCaptcha(BufferedImage bi, int startX, int referenceFontSize) {
-//        System.out.println("[+] Entering scanForNextHorizontalChallengeXCoordinateForVerticalCaptcha");
         int nextX = startX;
-        int scanWidth = (int)(referenceFontSize * 1.5);
-        int maxOverlap = (referenceFontSize * MAX_OVERLAP_PERCENTAGE)/100;
-        int heightToScan = (bi.getWidth()/5) * 2; /*This is twice the maximum font size*/
+        int scanWidth = (int) (referenceFontSize * 1.5);
+        int maxOverlap = (referenceFontSize * MAX_OVERLAP_PERCENTAGE) / 100;
+        int heightToScan = (bi.getWidth() / 5) * 2; /*This is twice the maximum font size*/
 
 
-        for(int xMovement = 0; xMovement < scanWidth ; xMovement++) {
-            for(int y = 0; y <  heightToScan; y++) {
-                if(startX + xMovement >= bi.getWidth())
+        for (int xMovement = 0; xMovement < scanWidth; xMovement++) {
+            for (int y = 0; y < heightToScan; y++) {
+                if (startX + xMovement >= bi.getWidth())
                     break;
-//                System.out.println(bi.getWidth() + ", " + bi.getHeight() + ", => " + (startX + xMovement) + ", " + y);
                 long pixel = bi.getRGB(startX + xMovement, y);
-                if(pixel != WHITE) {
+                if (pixel != WHITE) {
                     nextX = startX + xMovement;
                     break;
                 }
@@ -148,7 +149,7 @@ public class CaptchaBuilder {
 
         Point tempPoint = pp.getPoint();
 
-        for(int i = 1; i < challengeCount ; i++) {
+        for (int i = 1; i < challengeCount; i++) {
             int tempX = scanForNextHorizontalChallengeXCoordinateForVerticalCaptcha(bi, tempPoint.x, pp.getFont().getSize());
             tempPoint = new Point(tempX, pp.getPoint().y); // change X, keep the same Y
             pp = challengePointProperties.get(i);
@@ -165,19 +166,17 @@ public class CaptchaBuilder {
     }
 
     private static int scanForNextVerticalChallengeYCoordinateForHorizontalCaptcha(BufferedImage bi, int startY, int referenceFontSize) {
-//        System.out.println("[+] Entering scanForNextVerticalChallengeYCoordinateForHorizontalCaptcha with startY = " + startY);
         int nextY = startY;
-        int scanHeight = (int)(referenceFontSize * 1.5);
-        int maxOverlap = (referenceFontSize * MAX_OVERLAP_PERCENTAGE)/100;
-        int widthToScan = (bi.getWidth()/5) * 2; /*This is twice the maximum font size*/
+        int scanHeight = (int) (referenceFontSize * 1.5);
+        int maxOverlap = (referenceFontSize * MAX_OVERLAP_PERCENTAGE) / 100;
+        int widthToScan = (bi.getWidth() / 5) * 2; /*This is twice the maximum font size*/
 
-        for(int yMovement = 0; yMovement < scanHeight ; yMovement++) {
-            for(int x = 0; x <  widthToScan; x++) {
-                if(startY - yMovement < 0)
+        for (int yMovement = 0; yMovement < scanHeight; yMovement++) {
+            for (int x = 0; x < widthToScan; x++) {
+                if (startY - yMovement < 0)
                     break;
-//                System.out.println(bi.getWidth() + ", " + bi.getHeight() + ", => " +x + ", " + (startY - yMovement));
                 long pixel = bi.getRGB(x, startY - yMovement);
-                if(pixel != WHITE) {
+                if (pixel != WHITE) {
                     nextY = startY - yMovement;
                     break;
                 }
@@ -200,7 +199,7 @@ public class CaptchaBuilder {
 
         Point tempPoint = pp.getPoint();
 
-        for(int i = 2; i <= challengeCount ; i++) {
+        for (int i = 2; i <= challengeCount; i++) {
             int tempY = scanForNextVerticalChallengeYCoordinateForHorizontalCaptcha(bi, tempPoint.y, pp.getFont().getSize());
             tempPoint = new Point(pp.getPoint().x, tempY); // keep the same X, change the Y
             pp = challengePointProperties.get(challengeCount - i);
@@ -223,7 +222,7 @@ public class CaptchaBuilder {
         BufferedImage bi = getBufferedImage(captchaMetadata);
         paintCaptchaBackground(bi, captchaMetadata);
 
-        if(isHorizontal) {
+        if (isHorizontal) {
             drawCollapsedChallengeForHorizontalCAPTCHA(bi, captchaMetadata);
         } else {
             drawCollapsedChallengeForVerticalCAPTCHA(bi, captchaMetadata);
@@ -233,7 +232,6 @@ public class CaptchaBuilder {
         return bi;
 
     }
-
 
 
     private static BufferedImage buildHorizontalCAPTCHA(CaptchaMetadata captchaMetadata) {

@@ -9,6 +9,7 @@ package com.salesforce.pixelcaptcha.interfaces;
 import java.awt.image.BufferedImage;
 
 public interface Captcha {
-	BufferedImage getImage();
-	String getIdentifier();
+    BufferedImage getImage();
+
+    String getIdentifier();
 }

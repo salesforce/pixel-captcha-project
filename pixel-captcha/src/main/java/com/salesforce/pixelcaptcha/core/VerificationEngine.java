@@ -17,7 +17,7 @@ import java.util.List;
 
 /**
  * @author Gursev Singh Kalra @ Salesforce.com
- * This stateless class is responsible for validating the CAPTCHA solution.
+ *         This stateless class is responsible for validating the CAPTCHA solution.
  */
 public class VerificationEngine {
     public static final int MATCH = 0;
@@ -26,8 +26,9 @@ public class VerificationEngine {
 
     private static final String INVALID_SIZE = "Challenge and response size is different";
     private static VerificationEngine INSTANCE = null;
+
     public static synchronized VerificationEngine getInstance() {
-        if(INSTANCE == null) {
+        if (INSTANCE == null) {
             INSTANCE = new VerificationEngine();
         }
         return INSTANCE;
@@ -39,20 +40,21 @@ public class VerificationEngine {
 
     /**
      * This method performs CAPTCHA validation validation
+     *
      * @param pixelCaptchaSolution The solution for a particular CAPTCHA
-     * @param response The response provided by the user
+     * @param response             The response provided by the user
      * @return A ValidationResult object
      */
     public ValidationResult verifySolution(CaptchaSolution pixelCaptchaSolution, List<Point> response) {
-        if(pixelCaptchaSolution == null || response == null)
+        if (pixelCaptchaSolution == null || response == null)
             throw new IllegalArgumentException("One of the arguments to verifySolution is null");
 
-        if(pixelCaptchaSolution.getPoints().size() != response.size()) {
+        if (pixelCaptchaSolution.getPoints().size() != response.size()) {
             return new PixelCaptchaValidationResult(false, SIZE_MISMATCH, INVALID_SIZE);
         }
 
         ValidationResult result;
-        if(pixelCaptchaSolution.isOrdered()) {
+        if (pixelCaptchaSolution.isOrdered()) {
             result = verifySolutionOrdered(pixelCaptchaSolution, response);
         } else {
             result = verifySolutionUnordered(pixelCaptchaSolution, response);
@@ -62,14 +64,12 @@ public class VerificationEngine {
 
     private ValidationResult verifySolutionOrdered(CaptchaSolution pixelCaptchaSolution, List<Point> response) {
         int totalDistance = 0;
-        for(int i = 0; i < response.size(); i++) {
+        for (int i = 0; i < response.size(); i++) {
             int distance = (int) response.get(i).distance(pixelCaptchaSolution.getPoints().get(i));
             totalDistance += distance;
         }
 
-//        System.out.println("totalDistance " + totalDistance + ",pixelCaptchaSolution.getMaxDeviation() "  + pixelCaptchaSolution.getMaxDeviation());
-
-        if(totalDistance <= pixelCaptchaSolution.getMaxDeviation()) {
+        if (totalDistance <= pixelCaptchaSolution.getMaxDeviation()) {
             return new PixelCaptchaValidationResult(true, MATCH, "Maximum permissible deviation = " + pixelCaptchaSolution.getMaxDeviation() + ", actual value = " + totalDistance);
         } else {
             return new PixelCaptchaValidationResult(false, THRESHOLD_EXCEEDED, "Maximum permissible deviation = " + pixelCaptchaSolution.getMaxDeviation() + ", actual value = " + totalDistance);
@@ -80,18 +80,18 @@ public class VerificationEngine {
     private ValidationResult verifySolutionUnordered(CaptchaSolution pixelCaptchaSolution, List<Point> response) {
         // Not changing the values inside pixelCaptchaSolution.
         List<Point> tempSolutionPoints = new ArrayList<>();
-        for (Point p: pixelCaptchaSolution.getPoints())
+        for (Point p : pixelCaptchaSolution.getPoints())
             tempSolutionPoints.add(p);
 
         int totalDistance = 0;
-        for(Point responsePoint: response) {
+        for (Point responsePoint : response) {
             int minDistance = Integer.MAX_VALUE;
             int minDistanceIndex = Integer.MAX_VALUE;
 //            int minDistance = 100000;
 //            int minDistanceIndex = 1000000;
-            for(int i = 0; i < tempSolutionPoints.size(); i++) {
+            for (int i = 0; i < tempSolutionPoints.size(); i++) {
                 int distance = (int) responsePoint.distance(tempSolutionPoints.get(i));
-                if(distance < minDistance ) {
+                if (distance < minDistance) {
                     minDistance = distance;
                     minDistanceIndex = i;
                 }
@@ -101,7 +101,7 @@ public class VerificationEngine {
             totalDistance += minDistance;
         }
 
-        if(totalDistance <= pixelCaptchaSolution.getMaxDeviation()) {
+        if (totalDistance <= pixelCaptchaSolution.getMaxDeviation()) {
             return new PixelCaptchaValidationResult(true, MATCH, "Maximum permissible deviation = " + pixelCaptchaSolution.getMaxDeviation() + ", actual value = " + totalDistance);
         } else {
             return new PixelCaptchaValidationResult(false, THRESHOLD_EXCEEDED, "Maximum permissible deviation = " + pixelCaptchaSolution.getMaxDeviation() + ", actual value = " + totalDistance);

@@ -25,7 +25,8 @@ import java.util.Map;
  */
 public class TestCaptchaGenerator {
     private static SecureRandom random = new SecureRandom();
-    private static String getRandomImageAsString(){
+
+    private static String getRandomImageAsString() {
 
         BufferedImage bi = new BufferedImage(
                 300, 300, BufferedImage.TYPE_USHORT_555_RGB
@@ -45,17 +46,16 @@ public class TestCaptchaGenerator {
             System.out.println(e);
         }
         String encoded = Base64.getEncoder().encodeToString(baos.toByteArray());
-//        System.out.println(encoded);
 
         return encoded;
     }
 
     public static String getRandomCaptcha() {
         Map<String, String> m = new HashMap<>();
-        m.put("id", new BigInteger(100, random).toString(32) );
+        m.put("id", new BigInteger(100, random).toString(32));
         m.put("width", Integer.toString(300));
         m.put("height", Integer.toString(300));
-        m.put("image", "data:image/png;base64,"+getRandomImageAsString());
+        m.put("image", "data:image/png;base64," + getRandomImageAsString());
         Gson gson = new Gson();
         return gson.toJson(m);
     }

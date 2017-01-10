@@ -26,46 +26,46 @@ import static org.mockito.Mockito.mock;
 public class GeneralTests {
 
 
-	int testSize = 10;
-	int testTimeout = 15;
+    int testSize = 10;
+    int testTimeout = 15;
 
-	@Test
-	public void testGetInstanceWorkingWithValidValues() {
-		CaptchaSolutionStore pcss ;
-		pcss = PixelCaptchaSolutionStore.getInstance(testSize, testTimeout);
-		assertNotNull(pcss);
-		pcss = PixelCaptchaSolutionStore.getInstance();
-		assertNotNull(pcss);
-	}
-
-
-	@Test
-	public void testMaximumSizeOfStorage() {
-		CaptchaSolutionStore pcss ;
-		int size = 10;
-		List<String> identifiers = new ArrayList<>();
-		pcss = PixelCaptchaSolutionStore.getInstance(size, PixelCaptchaSolutionStore.DEFAULT_TIMEOUT);
-		for(int i = 0; i < size/2; i++) {
-			identifiers.add(pcss.storeCaptchaSolution(mock(CaptchaSolution.class)));
-		}
-		assertNotEquals(Optional.absent(), pcss.getCaptchaSolution(identifiers.get(0)));
-		
-		for(int i = size/2; i < size*2; i++) 
-			identifiers.add(pcss.storeCaptchaSolution(mock(CaptchaSolution.class)));
-		assertNotEquals(Optional.absent(), pcss.getCaptchaSolution(identifiers.get(size*2-1)));
-	}
+    @Test
+    public void testGetInstanceWorkingWithValidValues() {
+        CaptchaSolutionStore pcss;
+        pcss = PixelCaptchaSolutionStore.getInstance(testSize, testTimeout);
+        assertNotNull(pcss);
+        pcss = PixelCaptchaSolutionStore.getInstance();
+        assertNotNull(pcss);
+    }
 
 
-	/**
-	 * This test tries to store more data than to initialized storage.
-	 */
-	@Test
-	public void testStorageSize() {
-		CaptchaSolutionStore pcss ;
-		int size = 10;
-		pcss = PixelCaptchaSolutionStore.getInstance(size, PixelCaptchaSolutionStore.DEFAULT_TIMEOUT);
-		for(int i = 0; i < size *2; i++)
-			pcss.storeCaptchaSolution(mock(CaptchaSolution.class));
-		assertEquals(size, pcss.getSize());
-	}
+    @Test
+    public void testMaximumSizeOfStorage() {
+        CaptchaSolutionStore pcss;
+        int size = 10;
+        List<String> identifiers = new ArrayList<>();
+        pcss = PixelCaptchaSolutionStore.getInstance(size, PixelCaptchaSolutionStore.DEFAULT_TIMEOUT);
+        for (int i = 0; i < size / 2; i++) {
+            identifiers.add(pcss.storeCaptchaSolution(mock(CaptchaSolution.class)));
+        }
+        assertNotEquals(Optional.absent(), pcss.getCaptchaSolution(identifiers.get(0)));
+
+        for (int i = size / 2; i < size * 2; i++)
+            identifiers.add(pcss.storeCaptchaSolution(mock(CaptchaSolution.class)));
+        assertNotEquals(Optional.absent(), pcss.getCaptchaSolution(identifiers.get(size * 2 - 1)));
+    }
+
+
+    /**
+     * This test tries to store more data than to initialized storage.
+     */
+    @Test
+    public void testStorageSize() {
+        CaptchaSolutionStore pcss;
+        int size = 10;
+        pcss = PixelCaptchaSolutionStore.getInstance(size, PixelCaptchaSolutionStore.DEFAULT_TIMEOUT);
+        for (int i = 0; i < size * 2; i++)
+            pcss.storeCaptchaSolution(mock(CaptchaSolution.class));
+        assertEquals(size, pcss.getSize());
+    }
 }

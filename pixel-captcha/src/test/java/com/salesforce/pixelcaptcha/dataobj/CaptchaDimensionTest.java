@@ -11,7 +11,9 @@ import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
 import static org.junit.Assert.assertNotNull;
+
 /**
  * @author Gursev Singh Kalra @ Salesforce.com
  */
@@ -20,10 +22,10 @@ import static org.junit.Assert.assertNotNull;
 public class CaptchaDimensionTest {
 
     private static final Object[] getInvalidValues() {
-        return new Object[] {
-                new Object[] {0, 0},
-                new Object[] {10, -1},
-                new Object[] {-1, 10}
+        return new Object[]{
+                new Object[]{0, 0},
+                new Object[]{10, -1},
+                new Object[]{-1, 10}
         };
     }
 

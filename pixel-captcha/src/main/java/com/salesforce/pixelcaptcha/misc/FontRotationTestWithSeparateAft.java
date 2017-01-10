@@ -42,8 +42,8 @@ public class FontRotationTestWithSeparateAft {
         g2d.setColor(Color.BLACK);
         g2d.setFont(font);
         g2d.setTransform(aft);
-        g2d.drawString(toWrite, size/2, size/2);
-        File outputFile = new File(homeDir +"/" + name + ".png");
+        g2d.drawString(toWrite, size / 2, size / 2);
+        File outputFile = new File(homeDir + "/" + name + ".png");
         try {
             ImageIO.write(bi, "png", outputFile);
         } catch (IOException e) {
@@ -54,7 +54,7 @@ public class FontRotationTestWithSeparateAft {
     }
 
     private static Font getRegularFont(int size) {
-        return new Font(Font.SANS_SERIF, Font.PLAIN, size/3);
+        return new Font(Font.SANS_SERIF, Font.PLAIN, size / 3);
     }
 
     private static AffineTransform getAftRotationFirst() {

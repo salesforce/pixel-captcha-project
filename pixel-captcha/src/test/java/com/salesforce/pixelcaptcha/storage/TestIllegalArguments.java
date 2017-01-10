@@ -19,11 +19,11 @@ import org.junit.runner.RunWith;
 public class TestIllegalArguments {
 
     private static final Object[] getInvalidValues() {
-        return new Object[] {
-                new Object[] {PixelCaptchaSolutionStore.MIN_SIZE - 1, PixelCaptchaSolutionStore.MAX_TIMEOUT},
-                new Object[] {0, PixelCaptchaSolutionStore.MAX_TIMEOUT},
-                new Object[] {-1, PixelCaptchaSolutionStore.MAX_TIMEOUT},
-                new Object[] {10, PixelCaptchaSolutionStore.MAX_TIMEOUT+1}
+        return new Object[]{
+                new Object[]{PixelCaptchaSolutionStore.MIN_SIZE - 1, PixelCaptchaSolutionStore.MAX_TIMEOUT},
+                new Object[]{0, PixelCaptchaSolutionStore.MAX_TIMEOUT},
+                new Object[]{-1, PixelCaptchaSolutionStore.MAX_TIMEOUT},
+                new Object[]{10, PixelCaptchaSolutionStore.MAX_TIMEOUT + 1}
         };
     }
 

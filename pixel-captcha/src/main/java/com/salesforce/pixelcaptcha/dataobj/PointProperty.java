@@ -17,17 +17,17 @@ import java.awt.geom.AffineTransform;
  */
 public interface PointProperty {
 
-	//The font for the current point
-	public Font getFont();
+    //The font for the current point
+    public Font getFont();
 
-	// The string is one character in length for the current CAPTCHA.
-	// This may change in future.
-	public String getStringToWrite();
+    // The string is one character in length for the current CAPTCHA.
+    // This may change in future.
+    public String getStringToWrite();
 
-	//Return the current point for which the properties have values
-	public Point getPoint();
+    //Return the current point for which the properties have values
+    public Point getPoint();
 
-	//Return the color for the current point
-	public Color getColor();
+    //Return the color for the current point
+    public Color getColor();
 
 }

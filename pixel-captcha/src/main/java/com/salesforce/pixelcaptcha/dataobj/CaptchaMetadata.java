@@ -23,64 +23,64 @@ import java.util.List;
  * </ol>
  */
 public class CaptchaMetadata {
-	private List<PointProperty> challenge;
-	private List<PointProperty> solutionOptions;
-	private CaptchaSolution solution;
-	private CaptchaDimension captchaDimension;
-	private int imageType;
-	private Color backgroundColor;
+    private List<PointProperty> challenge;
+    private List<PointProperty> solutionOptions;
+    private CaptchaSolution solution;
+    private CaptchaDimension captchaDimension;
+    private int imageType;
+    private Color backgroundColor;
 
-	public CaptchaMetadata(List<PointProperty> challenge,
-			List<PointProperty> solutionOptions,
-			CaptchaSolution solution,
-			CaptchaDimension captchaDimension) {
-		super();
+    public CaptchaMetadata(List<PointProperty> challenge,
+                           List<PointProperty> solutionOptions,
+                           CaptchaSolution solution,
+                           CaptchaDimension captchaDimension) {
+        super();
 
 
-		if(challenge == null || solutionOptions == null || solution == null || captchaDimension == null)
-			throw new NullPointerException("challenge, solutionOptions, solution or captchaDimension cannot be null");
+        if (challenge == null || solutionOptions == null || solution == null || captchaDimension == null)
+            throw new NullPointerException("challenge, solutionOptions, solution or captchaDimension cannot be null");
 
-		if(challenge.size() < GlobalConstants.MIN_CHALLENGE_COUNT ||
-				solutionOptions.size() < GlobalConstants.MIN_RESPONSE_COUNT ||
-				challenge.size() > GlobalConstants.MAX_CHALLENGE_COUNT ||
-				solutionOptions.size() > GlobalConstants.MAX_RESPONSE_COUNT
-				)
-			throw new IllegalArgumentException("Either challenge count or solutionOptions count is illegal");
+        if (challenge.size() < GlobalConstants.MIN_CHALLENGE_COUNT ||
+                solutionOptions.size() < GlobalConstants.MIN_RESPONSE_COUNT ||
+                challenge.size() > GlobalConstants.MAX_CHALLENGE_COUNT ||
+                solutionOptions.size() > GlobalConstants.MAX_RESPONSE_COUNT
+                )
+            throw new IllegalArgumentException("Either challenge count or solutionOptions count is illegal");
 
-		this.challenge = challenge;
-		this.solutionOptions = solutionOptions;
-		this.solution = solution;
-		this.captchaDimension = captchaDimension;
+        this.challenge = challenge;
+        this.solutionOptions = solutionOptions;
+        this.solution = solution;
+        this.captchaDimension = captchaDimension;
 
 //		 For now, imageType will always be set to GlobalConstants.DEFAULT_IMAGE_TYPE
 //		 if(imageType < 0)
 //			throw  new IllegalArgumentException("imageType cannot be less than 0");
-		this.imageType = GlobalConstants.DEFAULT_IMAGE_TYPE;
-		this.backgroundColor = Color.WHITE;
-	}
+        this.imageType = GlobalConstants.DEFAULT_IMAGE_TYPE;
+        this.backgroundColor = Color.WHITE;
+    }
 
-	public List<PointProperty> getChallenge() {
-		return this.challenge;
-	}
+    public List<PointProperty> getChallenge() {
+        return this.challenge;
+    }
 
-	public List<PointProperty> getSolutionOptions() {
-		return this.solutionOptions;
-	}
+    public List<PointProperty> getSolutionOptions() {
+        return this.solutionOptions;
+    }
 
-	public CaptchaSolution getSolution() {
-		return this.solution;
-	}
+    public CaptchaSolution getSolution() {
+        return this.solution;
+    }
 
-	public CaptchaDimension getCaptchaDimension() {
-		return this.captchaDimension;
-	}
+    public CaptchaDimension getCaptchaDimension() {
+        return this.captchaDimension;
+    }
 
-	public int getImageType() {
-		return this.imageType;
-	}
+    public int getImageType() {
+        return this.imageType;
+    }
 
 
-	public Color getBackgroundColor() {
-		return this.backgroundColor;
-	}
+    public Color getBackgroundColor() {
+        return this.backgroundColor;
+    }
 }

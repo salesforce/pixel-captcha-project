@@ -11,7 +11,6 @@ import com.salesforce.pixelcaptcha.dataobj.CaptchaDimension;
 import com.salesforce.pixelcaptcha.dataobj.CaptchaMetadata;
 import com.salesforce.pixelcaptcha.dataobj.ChallengeAndResponseCount;
 import com.salesforce.pixelcaptcha.dataobj.PointProperty;
-import org.apache.commons.lang3.ArrayUtils;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -38,12 +37,13 @@ public class CaptchaMetadataFactoryTest {
     private int averageFontSize;
 
     CaptchaMetadataFactory captchaMetadataFactory;
+
     @Before
     public void setUp() throws Exception {
         MasterConfig masterConfig;
         ChallengeAndResponseCount challengeAndResponseCount = ChallengeAndResponseCount.FOUR_TWELVE;
         CaptchaDimension captchaDimensions = new CaptchaDimension(400, 300);
-        averageFontSize = (minFontSize + maxFontSize)/2;
+        averageFontSize = (minFontSize + maxFontSize) / 2;
         boolean isHorizontal = true;
         boolean isOrdered = false;
         masterConfig = mock(MasterConfig.class);
@@ -67,7 +67,7 @@ public class CaptchaMetadataFactoryTest {
     @Test
     public void testChallengePointsAreInChallengeRectangle() throws Exception {
         ppList = captchaMetadata.getChallenge();
-        for(int i = 0; i < ppList.size(); i++ ) {
+        for (int i = 0; i < ppList.size(); i++) {
             Point p = ppList.get(i).getPoint();
             assertTrue(challengeRectangle.contains(p.x, p.y));
         }
@@ -76,7 +76,7 @@ public class CaptchaMetadataFactoryTest {
     @Test
     public void testSolutionPointsAreInResponseRectangle() throws Exception {
         ppList = captchaMetadata.getSolutionOptions();
-        for(int i = 0; i < ppList.size(); i++ ) {
+        for (int i = 0; i < ppList.size(); i++) {
             Point p = ppList.get(i).getPoint();
             assertTrue(responseRectangle.contains(p.x, p.y));
         }
@@ -86,7 +86,7 @@ public class CaptchaMetadataFactoryTest {
     @Test
     public void testSolutionFontSizeIsWithinRange() throws Exception {
         ppList = captchaMetadata.getSolutionOptions();
-        for(int i = 0; i < ppList.size(); i++ ) {
+        for (int i = 0; i < ppList.size(); i++) {
             Font f = ppList.get(i).getFont();
             assertTrue(f.getSize() >= minFontSize);
             assertTrue(f.getSize() <= maxFontSize);
@@ -96,20 +96,29 @@ public class CaptchaMetadataFactoryTest {
     @Test
     public void testChallengeFontSizeIsWithinRange() throws Exception {
         ppList = captchaMetadata.getChallenge();
-        for(int i = 0; i < ppList.size(); i++ ) {
+        for (int i = 0; i < ppList.size(); i++) {
             Font f = ppList.get(i).getFont();
             assertTrue(f.getSize() >= averageFontSize);
             assertTrue(f.getSize() <= maxFontSize);
         }
     }
 
+    private boolean codePointExists(int[] arr, int itemToFind) {
+        for(int i = 0; i < arr.length; ++i) {
+            if(itemToFind == arr[i]) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Test
     public void testSolutionCodePointsAreAsExpected() throws Exception {
         ppList = captchaMetadata.getSolutionOptions();
-        for(int i = 0; i < ppList.size(); i++ ) {
+        for (int i = 0; i < ppList.size(); i++) {
             String s = ppList.get(i).getStringToWrite();
             assertTrue(s.length() == 1);
-            assertTrue(ArrayUtils.contains(printableCodePoints, s.charAt(0)));
+            assertTrue(codePointExists(printableCodePoints, s.charAt(0)));
         }
     }
 

@@ -49,9 +49,9 @@ public class RandomFontFactoryTest {
     public void testEnforceCheckFontSize() throws Exception {
         RandomFontFactory rff = new RandomFontFactory.Builder()
                 .minFontSize(RandomFontFactory.MIN_SUPPORTED_FONT_SIZE) //Using larger minimum font size for challenge characters for better clarity and usability
-                .maxFontSize(RandomFontFactory.MAX_SUPPORTED_FONT_SIZE/2)
+                .maxFontSize(RandomFontFactory.MAX_SUPPORTED_FONT_SIZE / 2)
                 .build();
-        for(int i =0; i < 50; i++) {
+        for (int i = 0; i < 50; i++) {
             assertTrue(rff.getRandomFont().getSize() >= RandomFontFactory.MIN_SUPPORTED_FONT_SIZE);
             assertTrue(rff.getRandomFont().getSize() <= RandomFontFactory.MAX_SUPPORTED_FONT_SIZE / 2);
         }
@@ -61,14 +61,10 @@ public class RandomFontFactoryTest {
     public void testRandomFontIsNotNull() throws Exception {
         RandomFontFactory rff = new RandomFontFactory.Builder()
                 .minFontSize(RandomFontFactory.MIN_SUPPORTED_FONT_SIZE) //Using larger minimum font size for challenge characters for better clarity and usability
-                .maxFontSize(RandomFontFactory.MAX_SUPPORTED_FONT_SIZE/2)
+                .maxFontSize(RandomFontFactory.MAX_SUPPORTED_FONT_SIZE / 2)
                 .build();
         assertNotNull(rff.getRandomFont());
     }
-
-
-
-
 
 
 }

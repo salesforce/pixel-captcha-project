@@ -20,11 +20,11 @@ import static org.mockito.Mockito.mock;
 public class TestTimeout {
     @Test
     public void testStorageTimeOut() throws InterruptedException {
-        CaptchaSolutionStore pcss ;
+        CaptchaSolutionStore pcss;
         int size = 10;
         pcss = new PixelCaptchaSolutionStore(size, 1);
         String identifier = pcss.storeCaptchaSolution(mock(CaptchaSolution.class));
-        for(int i = 0; i < size/2; i++)
+        for (int i = 0; i < size / 2; i++)
             pcss.storeCaptchaSolution(mock(CaptchaSolution.class));
         Thread.sleep(2 * 1000);
         assertEquals(Optional.absent(), pcss.getCaptchaSolution(identifier));

@@ -21,7 +21,7 @@ import static org.mockito.Mockito.when;
 
 public class VerificationEngineTest extends TestCase {
 
-    VerificationEngine ve ;
+    VerificationEngine ve;
     List<Point> twoChallenges;
     private int maxDeviation = 100;
 
@@ -35,7 +35,7 @@ public class VerificationEngineTest extends TestCase {
 
     private List<Point> getTwoResponsesYDelta(List<Point> reference, int delta) {
         List<Point> twoPointList = new ArrayList<Point>();
-        for(Point p: reference) {
+        for (Point p : reference) {
             twoPointList.add(new Point(p.x, p.y + delta));
         }
         return twoPointList;
@@ -43,7 +43,7 @@ public class VerificationEngineTest extends TestCase {
 
     private List<Point> getTwoResponsesXDelta(List<Point> reference, int delta) {
         List<Point> twoPointList = new ArrayList<Point>();
-        for(Point p: reference) {
+        for (Point p : reference) {
             twoPointList.add(new Point(p.x + delta, p.y));
         }
         return twoPointList;
@@ -57,7 +57,7 @@ public class VerificationEngineTest extends TestCase {
     }
 
     public void testValidateSolutionWithTwoChallengesOrdered() throws Exception {
-        int deviation = maxDeviation/4;
+        int deviation = maxDeviation / 4;
         CaptchaSolution cs = mock(PixelCaptchaSolution.class);
         when(cs.getMaxDeviation()).thenReturn((double) maxDeviation);
         when(cs.isOrdered()).thenReturn(true);
@@ -74,12 +74,12 @@ public class VerificationEngineTest extends TestCase {
         result = ve.verifySolution(cs, deviated);
         assertEquals(false, result.isPositive());
 
-        deviated = getTwoResponsesXDelta(twoChallenges, deviation*2);
+        deviated = getTwoResponsesXDelta(twoChallenges, deviation * 2);
         result = ve.verifySolution(cs, deviated);
         assertEquals(true, result.isPositive());
 
         // More distance
-        deviated = getTwoResponsesXDelta(twoChallenges, (int) (deviation*3));
+        deviated = getTwoResponsesXDelta(twoChallenges, (int) (deviation * 3));
         result = ve.verifySolution(cs, deviated);
         assertEquals(false, result.isPositive());
 
@@ -95,7 +95,7 @@ public class VerificationEngineTest extends TestCase {
     }
 
     public void testValidateSolutionWithTwoChallengesUnOrdered() throws Exception {
-        int deviation = maxDeviation/4;
+        int deviation = maxDeviation / 4;
         CaptchaSolution cs = mock(PixelCaptchaSolution.class);
         when(cs.getMaxDeviation()).thenReturn((double) maxDeviation);
         when(cs.isOrdered()).thenReturn(false);
@@ -128,14 +128,14 @@ public class VerificationEngineTest extends TestCase {
     }
 
     public void testValidateSolutionWithDifferentLengths() throws Exception {
-        int deviation = maxDeviation/4;
+        int deviation = maxDeviation / 4;
         CaptchaSolution cs = mock(PixelCaptchaSolution.class);
         when(cs.getMaxDeviation()).thenReturn((double) maxDeviation);
         when(cs.isOrdered()).thenReturn(true);
         when(cs.getPoints()).thenReturn(twoChallenges);
 
         List<Point> deviated = getTwoResponsesXDelta(twoChallenges, deviation);
-        deviated.add(new Point(1,1));
+        deviated.add(new Point(1, 1));
         ValidationResult result = ve.verifySolution(cs, deviated);
         assertEquals(false, result.isPositive());
 

@@ -34,7 +34,7 @@ public class HelperTest {
     public void testConvertIntegerListToIntArray() throws Exception {
         int[] a = {1, 2, 3};
         List<Integer> l = new ArrayList<>();
-        for(int temp: a) {
+        for (int temp : a) {
             l.add(new Integer(temp));
         }
         assertArrayEquals(a, Helper.convertIntegerListToIntArray(l));
@@ -46,7 +46,7 @@ public class HelperTest {
         int[] cpv = {-1, 2, 3};
         try {
             Helper.validateCodePointValues(cpv);
-            Helper.validateCodePointValues(new int[] {0, GlobalConstants.MAX_ALLOWED_CODE_POINT + 1});
+            Helper.validateCodePointValues(new int[]{0, GlobalConstants.MAX_ALLOWED_CODE_POINT + 1});
         } catch (IllegalArgumentException e) {
             assertEquals(e.getMessage(), "Code point must be between " + GlobalConstants.MIN_ALLOWED_CODE_POINT + " and " + GlobalConstants.MAX_ALLOWED_CODE_POINT);
         }

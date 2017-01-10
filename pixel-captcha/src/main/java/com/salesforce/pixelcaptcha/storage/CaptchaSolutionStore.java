@@ -11,11 +11,13 @@ import com.salesforce.pixelcaptcha.dataobj.CaptchaSolution;
 
 /**
  * Implementations of this interface actually store the response coordinates to the CAPTCHA.
- * @author Gursev Singh Kalra @ Salesforce.com
  *
+ * @author Gursev Singh Kalra @ Salesforce.com
  */
 public interface CaptchaSolutionStore {
-	String storeCaptchaSolution(CaptchaSolution solution);
-	Optional<CaptchaSolution> getCaptchaSolution(String identifier);
-	long getSize();
+    String storeCaptchaSolution(CaptchaSolution solution);
+
+    Optional<CaptchaSolution> getCaptchaSolution(String identifier);
+
+    long getSize();
 }

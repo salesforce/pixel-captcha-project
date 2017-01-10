@@ -10,6 +10,7 @@ package com.salesforce.pixelcaptcha.demo;
 /**
  * @author Gursev Singh Kalra @ Salesforce.com
  */
+
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class PixelCaptchaDemoAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
@@ -22,7 +23,7 @@ public class PixelCaptchaDemoAppInitializer extends AbstractAnnotationConfigDisp
     // context created by ContextLoaderListener.
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class <?>[] {RootConfig.class};
+        return new Class<?>[]{RootConfig.class};
     }
 
     // The @Configuration classes returned from getServletConfigClasses() will define beans
@@ -30,7 +31,7 @@ public class PixelCaptchaDemoAppInitializer extends AbstractAnnotationConfigDisp
     // loads application context with beans defined in WebConfig configuration class
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return new Class<?>[] {WebConfig.class};
+        return new Class<?>[]{WebConfig.class};
     }
 
     // Returns the paths to which the DispatcherServlet will map to
@@ -38,7 +39,7 @@ public class PixelCaptchaDemoAppInitializer extends AbstractAnnotationConfigDisp
 
     @Override
     protected String[] getServletMappings() {
-        return new String[] {"/"};
+        return new String[]{"/"};
     }
 
 }

@@ -11,38 +11,37 @@ import com.salesforce.pixelcaptcha.interfaces.ValidationResult;
 
 /**
  * @author Gursev Singh Kalra @ Salesforce.com
- *
  */
 public class PixelCaptchaValidationResult implements ValidationResult {
-	private boolean positive;
-	private int responseCode;
-	private String responseDetails;
+    private boolean positive;
+    private int responseCode;
+    private String responseDetails;
 
 
-	public PixelCaptchaValidationResult(boolean positive, int responseCode, String responseDetails) {
-		this.positive = positive;
-		this.responseCode = responseCode;
-		this.responseDetails = responseDetails;
-	}
+    public PixelCaptchaValidationResult(boolean positive, int responseCode, String responseDetails) {
+        this.positive = positive;
+        this.responseCode = responseCode;
+        this.responseDetails = responseDetails;
+    }
 
-	@Override
-	public boolean isPositive() {
-		return this.positive;
-	}
+    @Override
+    public boolean isPositive() {
+        return this.positive;
+    }
 
-	@Override
-	public int getResponseCode() {
-		return this.responseCode;
-	}
+    @Override
+    public int getResponseCode() {
+        return this.responseCode;
+    }
 
-	@Override
-	public String getResponseDetails() {
-		return this.responseDetails;
-	}
+    @Override
+    public String getResponseDetails() {
+        return this.responseDetails;
+    }
 
     @Override
     public String toString() {
-		Gson gson = new Gson();
-		return gson.toJson(this);
+        Gson gson = new Gson();
+        return gson.toJson(this);
     }
 }

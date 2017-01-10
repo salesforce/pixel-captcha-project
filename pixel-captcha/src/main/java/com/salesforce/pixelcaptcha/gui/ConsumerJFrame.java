@@ -18,7 +18,6 @@ import java.util.List;
 import java.util.Properties;
 
 /**
- *
  * @author Gursev Singh Kalra @ Salesforce.com
  */
 public class ConsumerJFrame extends javax.swing.JFrame {
@@ -53,7 +52,7 @@ public class ConsumerJFrame extends javax.swing.JFrame {
 
         settingsPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        sizeSelectionComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"300 x 400", "400 x 300" }));
+        sizeSelectionComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"300 x 400", "400 x 300"}));
 
         sizeLabel.setText("Size");
 
@@ -220,7 +219,7 @@ public class ConsumerJFrame extends javax.swing.JFrame {
         g2.setFont(new Font(Font.SERIF, Font.BOLD, 75));
         g2.drawString(".", x, y);
 
-        if(captchaWidth.contains("400")) {
+        if (captchaWidth.contains("400")) {
             clickPoints.add(new Point(x, y - 50));
         } else {
             clickPoints.add((new Point(x, y)));
@@ -258,8 +257,8 @@ public class ConsumerJFrame extends javax.swing.JFrame {
         this.responseCount = crCount[1].trim();
 
         String[] dimensions = sizeSelectionComboBox.getSelectedItem().toString().split("x");
-        this.captchaWidth =  dimensions[0].trim();
-        this.captchaHeight =  dimensions[1].trim();
+        this.captchaWidth = dimensions[0].trim();
+        this.captchaHeight = dimensions[1].trim();
 
         String codePoints = codePointValues.getText();
         this.codePoints = codePoints;

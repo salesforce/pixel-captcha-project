@@ -10,8 +10,11 @@ package com.salesforce.pixelcaptcha.utils;
 import java.awt.Font;
 
 public interface RandomStringFactory {
-	String getString(Font font, int length);
-	String getOneCharString(Font font);
-	String getString(int length);
-	String getOneCharString();
+    String getString(Font font, int length);
+
+    String getOneCharString(Font font);
+
+    String getString(int length);
+
+    String getOneCharString();
 }

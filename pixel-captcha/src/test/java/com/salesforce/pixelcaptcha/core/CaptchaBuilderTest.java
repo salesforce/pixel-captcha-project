@@ -31,7 +31,7 @@ public class CaptchaBuilderTest {
     public List<PointProperty> getPointProperties() {
         List<PointProperty> list = new ArrayList<>();
 
-        for(int i = 0; i < 3; i++) {
+        for (int i = 0; i < 3; i++) {
             PointProperty pp = mock(PointProperty.class);
             when(pp.getFont()).thenReturn(new Font(Font.SANS_SERIF, Font.BOLD, i + 10));
             when(pp.getStringToWrite()).thenReturn(Integer.toString(i));

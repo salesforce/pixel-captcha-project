@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.util.Arrays;
 
 /**
- * @author  Gursev Singh Kalra @ Salesforce.com
+ * @author Gursev Singh Kalra @ Salesforce.com
  */
 public class FontRotationTest {
     public static void main(String... args) {
@@ -27,10 +27,10 @@ public class FontRotationTest {
         font = getRotatedFont(size);
         writeImageWithFont(font, size, toWrite, "regularNoPointForRotation");
 
-        for(int rotation = 0; rotation < 150; rotation += 20) {
+        for (int rotation = 0; rotation < 150; rotation += 20) {
             for (int pt = 0; pt < size; pt += 20) {
-                Point p = new Point(pt , 0 );
-                font = getRotatedFontAtPoint(size, p , rotation);
+                Point p = new Point(pt, 0);
+                font = getRotatedFontAtPoint(size, p, rotation);
                 writeImageWithFont(font, size, toWrite, "rotation_" + rotation + "point_" + p);
             }
         }
@@ -47,8 +47,8 @@ public class FontRotationTest {
         g2d.fillRect(0, 0, size, size);
         g2d.setColor(Color.BLACK);
         g2d.setFont(font);
-        g2d.drawString(toWrite, size/2, size/2);
-        File outputFile = new File(homeDir +"/" + name + ".png");
+        g2d.drawString(toWrite, size / 2, size / 2);
+        File outputFile = new File(homeDir + "/" + name + ".png");
         try {
             ImageIO.write(bi, "png", outputFile);
         } catch (IOException e) {
@@ -59,18 +59,18 @@ public class FontRotationTest {
     }
 
     private static Font getRegularFont(int size) {
-        return new Font(Font.SANS_SERIF, Font.PLAIN, size/3);
+        return new Font(Font.SANS_SERIF, Font.PLAIN, size / 3);
     }
 
     private static Font getRotatedFont(int size) {
-        Font font = new Font(Font.SANS_SERIF, Font.PLAIN, size/3);
+        Font font = new Font(Font.SANS_SERIF, Font.PLAIN, size / 3);
         AffineTransform aft = new AffineTransform();
         aft.rotate(Math.toRadians(20));
         return font.deriveFont(aft);
     }
 
     private static Font getRotatedFontAtPoint(int size, Point point, int rotation) {
-        Font font = new Font(Font.SANS_SERIF, Font.PLAIN, size/3);
+        Font font = new Font(Font.SANS_SERIF, Font.PLAIN, size / 3);
         AffineTransform aft = new AffineTransform();
         aft.rotate(Math.toRadians(rotation), point.getX(), point.getY());
 //        aft.rotate(20, 0, 0);

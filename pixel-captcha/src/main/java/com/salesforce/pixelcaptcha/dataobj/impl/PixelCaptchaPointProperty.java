@@ -13,41 +13,41 @@ import java.awt.Font;
 import java.awt.Point;
 
 public class PixelCaptchaPointProperty implements PointProperty {
-	private Font font;
-	private String stringToWrite;
-	private Point point;
-	private Color color;
+    private Font font;
+    private String stringToWrite;
+    private Point point;
+    private Color color;
 
-	public PixelCaptchaPointProperty(String stringToWrite,
+    public PixelCaptchaPointProperty(String stringToWrite,
                                      Point point,
                                      Font font,
                                      Color color) {
-		if(stringToWrite == null || point == null || font == null || color == null ) {
-			throw new NullPointerException("At least one parameter to PixelCaptchaPointProperty constructor is null");
-		}
-		this.stringToWrite = stringToWrite;
-		this.point = point;
-		this.font = font;
-		this.color = color;
-	}
+        if (stringToWrite == null || point == null || font == null || color == null) {
+            throw new NullPointerException("At least one parameter to PixelCaptchaPointProperty constructor is null");
+        }
+        this.stringToWrite = stringToWrite;
+        this.point = point;
+        this.font = font;
+        this.color = color;
+    }
 
     @Override
-	public Font getFont() {
-		return font;
-	}
+    public Font getFont() {
+        return font;
+    }
 
     @Override
     public String getStringToWrite() {
-		return stringToWrite;
-	}
+        return stringToWrite;
+    }
 
     @Override
     public Point getPoint() {
-		return point;
-	}
+        return point;
+    }
 
     @Override
     public Color getColor() {
-		return color;
-	}
+        return color;
+    }
 }

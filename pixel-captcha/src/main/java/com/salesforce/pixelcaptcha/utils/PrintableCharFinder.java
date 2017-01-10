@@ -14,15 +14,17 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Arrays;
+
 import com.google.common.base.CharMatcher;
+
 import java.util.Scanner;
 
 /**
  * @author Gursev Singh Kalra @ Salesforce.com
- * This class initializes its contents from serif_printable.txt inside resources.
- * It creates a boolean array of size 65536 and stores true or false inside each index.
- * A true at an index means that the character is printable and will leave a visible impression on the CAPTCHA
- * A true at an index means that the character is not printable and will not leave a visible impression on the CAPTCHA
+ *         This class initializes its contents from serif_printable.txt inside resources.
+ *         It creates a boolean array of size 65536 and stores true or false inside each index.
+ *         A true at an index means that the character is printable and will leave a visible impression on the CAPTCHA
+ *         A true at an index means that the character is not printable and will not leave a visible impression on the CAPTCHA
  */
 public class PrintableCharFinder {
     private static int CAPTCHA_SIZE = 100;
@@ -31,7 +33,7 @@ public class PrintableCharFinder {
     private static String suffix = "_printable.txt";
     private static String directory = "printable_chars";
     private static String separator = "/";
-    private static Font font = new Font(Font.SERIF, Font.PLAIN, CAPTCHA_SIZE/4);
+    private static Font font = new Font(Font.SERIF, Font.PLAIN, CAPTCHA_SIZE / 4);
 
     //Stores the exact code points that are printable. It is not being used at the moment.
     private int[] printableGlyphsInt = new int[SIZE];
@@ -41,19 +43,19 @@ public class PrintableCharFinder {
     private boolean[] printableGlyphsBoolean = new boolean[SIZE];
     private static PrintableCharFinder instance;
 
-    private PrintableCharFinder()  {
+    private PrintableCharFinder() {
         loadPrintableCharsFromResourceFile(font);
     }
 
     public static synchronized PrintableCharFinder getInstance() {
-        if(instance == null) {
+        if (instance == null) {
             instance = new PrintableCharFinder();
         }
         return instance;
     }
 
     public boolean isPrintableChar(int codePoint) {
-        if(codePoint < 0 || codePoint >= SIZE)
+        if (codePoint < 0 || codePoint >= SIZE)
             throw new IllegalArgumentException("codePoint parameter cannot be greater than " + SIZE + " or less than " + 0);
 
         return printableGlyphsBoolean[codePoint];
@@ -72,7 +74,7 @@ public class PrintableCharFinder {
         while (sc.hasNextLine()) {
             String line = sc.nextLine();
             String[] ints = line.split(",");
-            for(String i: ints) {
+            for (String i : ints) {
                 cPs[index] = Integer.parseInt(i.trim());
                 printableGlyphsBoolean[cPs[index]] = true;
                 index++;
@@ -82,13 +84,8 @@ public class PrintableCharFinder {
     }
 
     public static void main(String... args) throws FileNotFoundException {
-//        if(false) {
-//            int[] values = loadPrintableCharsFromResourceFile(font);
-//            System.out.println(Arrays.toString(values));
-//            System.out.println(values.length);
-//        }
 
-        if(true) {
+        if (true) {
 //            int max = 65535;
             int max = 109999;
             int min = 0;
@@ -105,7 +102,6 @@ public class PrintableCharFinder {
                     sb.append(printables[i] + ", ");
                 }
             }
-//            System.out.println(printables.length);
             String home = System.getProperty("user.home");
             PrintWriter pw = new PrintWriter(home + "/0xffffff-samples.txt");
             pw.write(sb.toString());
@@ -116,67 +112,61 @@ public class PrintableCharFinder {
 
     private static void printAvailableFonts() {
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        String []fontFamilies = ge.getAvailableFontFamilyNames();
-//        System.out.println(Arrays.toString(fontFamilies));
+        String[] fontFamilies = ge.getAvailableFontFamilyNames();
     }
 
     private static void rawDisplayable(int max) {
         int dispCount = 0;
-        for(int i = 0; i < max; i++) {
+        for (int i = 0; i < max; i++) {
             if (font.canDisplay(i)) {
                 dispCount++;
             }
         }
-//        System.out.println(dispCount);
     }
 
     private static void computeWhitespaces(int max) {
         int gWhite = 0;
         int jWhite = 0;
         boolean found = false;
-        for(int i = 0; i < max; i++) {
-//            System.out.println(i);
-            if(Character.isWhitespace(i)) {
+        for (int i = 0; i < max; i++) {
+            if (Character.isWhitespace(i)) {
                 System.out.println("j => " + i);
                 jWhite++;
                 found = true;
             }
 
-            if(CharMatcher.WHITESPACE.matches((char)i)) {
+            if (CharMatcher.WHITESPACE.matches((char) i)) {
                 System.out.println("g => " + i);
                 gWhite++;
                 found = true;
             }
 
-            if(found) {
+            if (found) {
                 System.out.println("============");
                 found = false;
             }
 
         }
 
-        System.out.println(jWhite);
-        System.out.println(gWhite);
-
     }
 
     private static int[] computePrintableChars(Font font, int minCodePoint, int maxCodePoint) {
-        if(minCodePoint >= maxCodePoint || minCodePoint < 0 || maxCodePoint <= 0) {
+        if (minCodePoint >= maxCodePoint || minCodePoint < 0 || maxCodePoint <= 0) {
             throw new IllegalArgumentException("Illegal parameters to computePrintableChars");
         }
 
-        if(font == null)
+        if (font == null)
             throw new IllegalArgumentException("Font cannot be null");
 
         int captchaSize = CAPTCHA_SIZE;
-        int[] printable = new int[maxCodePoint - minCodePoint +1];
+        int[] printable = new int[maxCodePoint - minCodePoint + 1];
         int printableCount = 0;
         BufferedImage bi = new BufferedImage(captchaSize, captchaSize, BufferedImage.TYPE_BYTE_BINARY);
         Graphics2D g2d;
         g2d = bi.createGraphics();
 
-        for(int i = minCodePoint; i <= maxCodePoint; i++) {
-            if(!font.canDisplay(i) || Character.isWhitespace(i)) {
+        for (int i = minCodePoint; i <= maxCodePoint; i++) {
+            if (!font.canDisplay(i) || Character.isWhitespace(i)) {
                 continue;
             }
 
@@ -187,14 +177,14 @@ public class PrintableCharFinder {
             g2d.setColor(Color.BLACK);
             sb = new StringBuilder();
             sb.append(Character.toChars(i));
-            g2d.drawString(sb.toString(), captchaSize/2, captchaSize/2);
+            g2d.drawString(sb.toString(), captchaSize / 2, captchaSize / 2);
             int nonWhiteCount = getBlackPixelCount(bi);
-            if(nonWhiteCount > 0) {
+            if (nonWhiteCount > 0) {
                 printable[printableCount++] = i;
             }
         }
 
-        printable = Arrays.copyOf(printable, printableCount -1);
+        printable = Arrays.copyOf(printable, printableCount - 1);
         return printable;
     }
 
@@ -203,39 +193,37 @@ public class PrintableCharFinder {
         min = 0;
 
         int captchaSize = 100;
-        int[] printable = new int[max - min +1];
+        int[] printable = new int[max - min + 1];
         int[] nonPrintable = new int[max - min + 1];
         int printableCount = 0;
         int nonPrintableCount = 0;
         String homeDir = System.getProperty("user.home");
         homeDir = homeDir + "/printable-test/";
         BufferedImage bi = new BufferedImage(captchaSize, captchaSize, BufferedImage.TYPE_BYTE_BINARY);
-        Font fontHere = new Font(Font.DIALOG_INPUT, Font.BOLD, captchaSize/4);
+        Font fontHere = new Font(Font.DIALOG_INPUT, Font.BOLD, captchaSize / 4);
         Graphics2D g2d;
         g2d = bi.createGraphics();
         StringBuilder sb;
-        for(int i = min; i < max; i++) {
-            if(!fontHere.canDisplay(i)) {
+        for (int i = min; i < max; i++) {
+            if (!fontHere.canDisplay(i)) {
                 nonPrintable[nonPrintableCount++] = i;
                 System.out.println("[-] " + i + "is non-printable");
                 continue;
             }
             sb = new StringBuilder();
-            sb.append(Character.toChars(i-min));
+            sb.append(Character.toChars(i - min));
             g2d.setColor(Color.WHITE);
             g2d.fillRect(0, 0, captchaSize, captchaSize);
             g2d.setColor(Color.BLACK);
             g2d.setFont(fontHere);
-            g2d.drawString(sb.toString(), captchaSize/2, captchaSize/2);
+            g2d.drawString(sb.toString(), captchaSize / 2, captchaSize / 2);
             int nonWhiteCount = getBlackPixelCount(bi);
-            if(nonWhiteCount > 0) {
+            if (nonWhiteCount > 0) {
                 printable[printableCount++] = i;
-//                System.out.println("[+] " + i + " is printable");
             } else {
 //                nonPrintable[nonPrintableCount++] = i;
-//                System.out.println("[-] " + i + "is non-printable");
             }
-            File outputFile = new File(homeDir +i+".png");
+            File outputFile = new File(homeDir + i + ".png");
             try {
                 ImageIO.write(bi, "png", outputFile);
             } catch (IOException e) {
@@ -244,15 +232,15 @@ public class PrintableCharFinder {
         }
         System.out.println(printableCount);
 
-        printable = Arrays.copyOf(printable, printableCount -1);
+        printable = Arrays.copyOf(printable, printableCount - 1);
         return printable;
     }
 
     private static void prettyPrint(int[] array, int limit) {
         System.out.println("{");
-        for(int i = 0; i < array.length; i++) {
+        for (int i = 0; i < array.length; i++) {
             System.out.print(array[i] + ", ");
-            if(i%limit == 0)
+            if (i % limit == 0)
                 System.out.println();
         }
         System.out.println("\n}");
@@ -261,14 +249,14 @@ public class PrintableCharFinder {
 
     private static int getBlackPixelCount(BufferedImage bi) {
         int count = 0;
-        for(int i = 0; i < bi.getWidth(); i++) {
-            for(int j = 0; j < bi.getHeight(); j++) {
+        for (int i = 0; i < bi.getWidth(); i++) {
+            for (int j = 0; j < bi.getHeight(); j++) {
                 long pixel = bi.getRGB(i, j);
-                if(pixel != WHITE) {
+                if (pixel != WHITE) {
                     count++;
                 }
             }
-            if(count > 2)
+            if (count > 2)
                 break;
         }
         return count;

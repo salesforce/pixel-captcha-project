@@ -13,54 +13,54 @@ import java.util.List;
 
 /**
  * This class stores the solution for a CAPTCHA.
- * @author Gursev Singh Kalra @ Salesforce.com
  *
+ * @author Gursev Singh Kalra @ Salesforce.com
  */
 public class PixelCaptchaSolution implements CaptchaSolution {
-	/**
-	 * The solution parameter stores the solution for the CAPTCHA. It needs to be mutable.
-	 */
-	private List<Point> solution;
-	private double maxDeviation;
-	
-	/**
-	 * The ordered parameters indicates if the solution Points verification should be performed in ordered fashion or not
-	 * It defaults to false
-	 */
-	private boolean ordered;
+    /**
+     * The solution parameter stores the solution for the CAPTCHA. It needs to be mutable.
+     */
+    private List<Point> solution;
+    private double maxDeviation;
 
-	public PixelCaptchaSolution(List<Point> solution, double maxDeviation) {
-		this(solution, maxDeviation, false);
-	}
+    /**
+     * The ordered parameters indicates if the solution Points verification should be performed in ordered fashion or not
+     * It defaults to false
+     */
+    private boolean ordered;
 
-	public PixelCaptchaSolution(List<Point> solution, double maxDeviation, boolean ordered) {
-		if(solution == null)
-			throw new NullPointerException("Solution cannot be null");
-		this.solution = solution;
-		this.maxDeviation = maxDeviation;
-		this.ordered = ordered;
-	}
+    public PixelCaptchaSolution(List<Point> solution, double maxDeviation) {
+        this(solution, maxDeviation, false);
+    }
 
-	@Override
-	public void appendPoint(Point point) {
-		if(point == null)
-			throw new NullPointerException("point parameter cannot be null");
-		this.solution.add(point);
-	}
+    public PixelCaptchaSolution(List<Point> solution, double maxDeviation, boolean ordered) {
+        if (solution == null)
+            throw new NullPointerException("Solution cannot be null");
+        this.solution = solution;
+        this.maxDeviation = maxDeviation;
+        this.ordered = ordered;
+    }
 
-	@Override
-	public List<Point> getPoints() {
-		return this.solution;
-	}
+    @Override
+    public void appendPoint(Point point) {
+        if (point == null)
+            throw new NullPointerException("point parameter cannot be null");
+        this.solution.add(point);
+    }
 
-	@Override
-	public boolean isOrdered() {
-		return this.ordered;
-	}
+    @Override
+    public List<Point> getPoints() {
+        return this.solution;
+    }
 
-	@Override
-	public double getMaxDeviation() {
-		return this.maxDeviation;
-	}
+    @Override
+    public boolean isOrdered() {
+        return this.ordered;
+    }
+
+    @Override
+    public double getMaxDeviation() {
+        return this.maxDeviation;
+    }
 
 }

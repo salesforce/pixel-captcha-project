@@ -22,6 +22,7 @@ public class RandomPointFactoryTest {
     RandomPointFactory rpf;
     Rectangle testRectangle;
     int MAX = 100;
+
     @Before
     public void setUp() throws Exception {
         rpf = new RandomPointFactory();
@@ -35,7 +36,7 @@ public class RandomPointFactoryTest {
 
     private void checkThatFirstVChallengePointIsInExpectedRegion(int challengeCount) {
         Point p;
-        for(int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10; i++) {
             p = rpf.getFirstVChallengePointFromTopInRegion(testRectangle, challengeCount);
             assertTrue(p.x >= testRectangle.x);
             assertTrue(p.y >= testRectangle.y);
@@ -59,10 +60,10 @@ public class RandomPointFactoryTest {
         boolean result = true;
         // Not using rectangle.contains(point) because it returns false when the point is at the boundary
 
-        if(point.x < rectangle.x || point.x > rectangle.x + rectangle.width )
+        if (point.x < rectangle.x || point.x > rectangle.x + rectangle.width)
             result = false;
 
-        if(point.y < rectangle.y || point.y > rectangle.y + rectangle.height )
+        if (point.y < rectangle.y || point.y > rectangle.y + rectangle.height)
             result = false;
         return result;
 
@@ -70,11 +71,11 @@ public class RandomPointFactoryTest {
 
     private boolean isPointInsideRectangleAndNextYGreaterThanReferenceY(Rectangle rectangle, Point referencePoint, Point nextPoint) {
 
-        if(!isPointInRectangle(rectangle, nextPoint))
+        if (!isPointInRectangle(rectangle, nextPoint))
             return false;
 
         // new y value must be greater than or equal to the reference value
-        if(nextPoint.y < referencePoint.y)
+        if (nextPoint.y < referencePoint.y)
             return false;
 
         return true;
@@ -87,6 +88,7 @@ public class RandomPointFactoryTest {
      * 3. Get a new VChallenge point
      * 4. Do the following comparison for the new font: x is always within the rectangle and <br/>
      * new y is always greater than or equal to reference y, plus y is within the rectangle
+     *
      * @throws Exception
      */
     @Test
@@ -96,7 +98,7 @@ public class RandomPointFactoryTest {
         Font nextFont;
         Point referencePoint;
         // Get 1000 random points in the rectangle, and for each of those, create two fonts, get value of next point and check if it follows the conditions.
-        for(int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 1000; i++) {
             referencePoint = rpf.getRandomPoint(testRectangle);
             for (int reference = 10; reference < MAX / 2; reference += 5) {
                 for (int next = 10; next < MAX / 2; next += 5) {
@@ -111,11 +113,11 @@ public class RandomPointFactoryTest {
     }
 
     private boolean isPointInsideRectangleAndNextXGreaterThanReferenceX(Rectangle rectangle, Point referencePoint, Point nextPoint) {
-        if(!isPointInRectangle(rectangle, nextPoint))
+        if (!isPointInRectangle(rectangle, nextPoint))
             return false;
 
         // new y value must be greater than or equal to the reference value
-        if(nextPoint.x < referencePoint.x)
+        if (nextPoint.x < referencePoint.x)
             return false;
 
         return true;
@@ -129,7 +131,7 @@ public class RandomPointFactoryTest {
         Font nextFont;
         Point referencePoint;
         // Get 1000 random points in the rectangle, and for each of those, create two fonts, get value of next point and check if it follows the conditions.
-        for(int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 1000; i++) {
             referencePoint = rpf.getRandomPoint(testRectangle);
             for (int reference = 10; reference < MAX / 2; reference += 5) {
                 for (int next = 10; next < MAX / 2; next += 5) {
@@ -147,7 +149,7 @@ public class RandomPointFactoryTest {
     @Test
     public void testGetRandomPoint() throws Exception {
         Point p;
-        for(int i = 0; i< 100; i++) {
+        for (int i = 0; i < 100; i++) {
             p = rpf.getRandomPoint(testRectangle);
             assertTrue(p.getX() <= MAX);
             assertTrue(p.getY() <= MAX);
@@ -178,7 +180,7 @@ public class RandomPointFactoryTest {
         java.util.List<Point> lp = new ArrayList<>();
         testRectangle = new Rectangle(0, 0, 10, 10);
         Point p;
-        for(int i = 0; i < 10 * 10 -1 ; i++) {
+        for (int i = 0; i < 10 * 10 - 1; i++) {
             p = rpf.getRandomPointWithDistance(testRectangle, lp, 1);
             lp.add(p);
         }
@@ -191,7 +193,7 @@ public class RandomPointFactoryTest {
         java.util.List<Point> lp = new ArrayList<>();
         testRectangle = new Rectangle(0, 0, 10, 10);
         Point p;
-        for(int i = 0; i < 10 * 10 + 1 ; i++) {
+        for (int i = 0; i < 10 * 10 + 1; i++) {
             p = rpf.getRandomPointWithDistance(testRectangle, lp, 1);
             lp.add(p);
         }
