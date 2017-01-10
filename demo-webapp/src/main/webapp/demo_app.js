@@ -49,6 +49,7 @@ function loadCaptchaFromResponse(jsonString) {
     //img.src = json["uri"];
     img.onload = function () {
         var context = canvas.getContext("2d");
+        captchaImage = img;
         context.drawImage(img, 0, 0, canvas.width, canvas.height);
     }
 
@@ -79,7 +80,6 @@ function captureClickCoordinates(event) {
     capturedClicksInput["p" + clickNumber] = {"x": event.offsetX, "y": event.offsetY};
     clickNumber++;
 
-    console.log(capturedClicksInput);
     var canvas = document.getElementById('pixelcaptcha_canvas');
     var c2d = canvas.getContext("2d");
     c2d.beginPath();
