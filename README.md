@@ -1,4 +1,4 @@
-# Pixel CAPTCHA Project
+# PixelCAPTCHA Project
 A Unicode based visual CAPTCHA scheme that leverages the 64K Unicode code points from the Basic Multilingual Plane (plane 0) to construct the CAPTCHAs that can be solved with 2 to 4 mouse clicks.
 
 It is written in Java and tested to work on JDK 8.0. You will also need Maven build system. This project has two demo applications; a sample web application the the second is a Swing based UI. You can play with either and provide your feedback.
