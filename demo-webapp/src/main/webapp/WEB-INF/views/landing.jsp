@@ -11,7 +11,6 @@
             background:-o-linear-gradient(top, #ededed 5%, #bab1ba 100%);
             background:-ms-linear-gradient(top, #ededed 5%, #bab1ba 100%);
             background:linear-gradient(to bottom, #ededed 5%, #bab1ba 100%);
-            filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#bab1ba',GradientType=0);
             background-color:#ededed;
             -moz-border-radius:42px;
             -webkit-border-radius:42px;
@@ -36,14 +35,30 @@
             color: blue;
         }
 
+        td[class=configurationbold] {
+            color: blue;
+            font-weight: bold;
+        }
+
         td[class=success] {
             color: green;
+        }
+
+        td[class=successbold] {
+            color: green;
+            font-weight: bold;
         }
 
         td[class=failure] {
             color: red;
         }
 
+        td[class=failurebold] {
+            color: red;
+            font-weight: bold;
+        }
+
+        /* https://www.w3schools.com/css/css_tooltip.asp */
         .tooltip {
             position: relative;
             display: inline-block;
@@ -118,6 +133,12 @@
             </td>
             <td>
                 <table frame="box" width="400">
+                    <tr>
+                        <td align="left" colspan="2">
+                            <b> CAPTCHA Configuration Options</b>
+                        </td>
+                    </tr>
+
                     <tr>
                         <td class="tooltip">
                             Challenge Count
@@ -211,7 +232,11 @@
 
                 <table frame="box" width="400">
                     <tr>
-                        <td id="info_label"> Captcha Config</td>
+                        <td id="info_label">
+                            <%--<b>Captcha Config</b>--%>
+                        </td>
+                    </tr>
+                    <tr>
                         <td id="info_content"></td>
                     </tr>
                 </table>

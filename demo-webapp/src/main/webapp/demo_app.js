@@ -112,10 +112,10 @@ function displayResponse(label, responseText) {
     var verificationStatus = document.getElementById("info_content");
     var info_label = document.getElementById("info_label");
     if(json.status === "success") {
-        info_label.className = "success";
+        info_label.className = "successbold";
         verificationStatus.className = "success";
     } else if (json.status === "failure") {
-        info_label.className = "failure";
+        info_label.className = "failurebold";
         verificationStatus.className = "failure";
     }
 
@@ -172,10 +172,12 @@ function setConfigurationStatus(jsonString) {
     setTimeout(function() {
         var td = document.getElementById("info_content");
         var info_label = document.getElementById("info_label");
-        info_label.className = "configuration";
+
+        info_label.className = "configurationbold";
         td.className = "configuration";
-        td.innerText = valueToWrite;
+
         info_label.innerText = "Current Configuration";
+        td.innerText = valueToWrite;
     }, 0);
 }
 
