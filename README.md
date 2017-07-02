@@ -7,12 +7,10 @@ It is written in Java and tested to work on JDK 8.0. You will also need Maven bu
 Let's see a couple of sample CAPTCHA's.
 
 ### Sample Horizontal CAPTCHA
-<br/>
-![Alt text](https://github.com/gursev/misc/blob/master/sample-pixel-captcha/horizontal_captcha.png)
+![Alt text](https://raw.githubusercontent.com/gursev/misc/master/sample-pixel-captcha/horizontal_captcha.png)
 
 ### Sample Vertical CAPTCHA
-<br/>
-![Alt text](https://github.com/gursev/misc/blob/master/sample-pixel-captcha/vertical_captcha.png)
+![Alt text](https://raw.githubusercontent.com/gursev/misc/master/sample-pixel-captcha/vertical_captcha.png)
 
 ## Getting Your Feet Wet
 ### Demo Web Application
