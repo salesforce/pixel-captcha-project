@@ -102,9 +102,9 @@ public class VerificationEngine {
         }
 
         if (totalDistance <= pixelCaptchaSolution.getMaxDeviation()) {
-            return new PixelCaptchaValidationResult(true, MATCH, "Maximum permissible deviation = " + pixelCaptchaSolution.getMaxDeviation() + ", actual value = " + totalDistance);
+            return new PixelCaptchaValidationResult(true, MATCH, "Maximum permissible deviation = " + String.format("%.2f", pixelCaptchaSolution.getMaxDeviation()) + ", actual value = " + totalDistance);
         } else {
-            return new PixelCaptchaValidationResult(false, THRESHOLD_EXCEEDED, "Maximum permissible deviation = " + pixelCaptchaSolution.getMaxDeviation() + ", actual value = " + totalDistance);
+            return new PixelCaptchaValidationResult(false, THRESHOLD_EXCEEDED, "Maximum permissible deviation = " + String.format("%.2f", pixelCaptchaSolution.getMaxDeviation()) + ", actual value = " + totalDistance);
         }
     }
 }

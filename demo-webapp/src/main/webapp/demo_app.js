@@ -110,9 +110,16 @@ function submitSolution() {
 function displayResponse(label, responseText) {
     var json = JSON.parse(responseText);
     var verificationStatus = document.getElementById("info_content");
-    verificationStatus.innerText = JSON.stringify(json, null, 2);
-
     var info_label = document.getElementById("info_label");
+    if(json.status === "success") {
+        info_label.className = "success";
+        verificationStatus.className = "success";
+    } else if (json.status === "failure") {
+        info_label.className = "failure";
+        verificationStatus.className = "failure";
+    }
+
+    verificationStatus.innerText = JSON.stringify(json, null, 2);
     info_label.innerText = label;
 }
 
@@ -161,12 +168,15 @@ function setCaptchaConfig() {
 function setConfigurationStatus(jsonString) {
     var json = JSON.parse(jsonString);
     var valueToWrite = JSON.stringify(json, null, 2);
-    var td = document.getElementById("info_content");
-    td.innerText = valueToWrite;
 
-    var info_label = document.getElementById("info_label");
-    info_label.innerText = "Current Configuration";
-
+    setTimeout(function() {
+        var td = document.getElementById("info_content");
+        var info_label = document.getElementById("info_label");
+        info_label.className = "configuration";
+        td.className = "configuration";
+        td.innerText = valueToWrite;
+        info_label.innerText = "Current Configuration";
+    }, 0);
 }
 
 function setCaptchaConfigMethod() {

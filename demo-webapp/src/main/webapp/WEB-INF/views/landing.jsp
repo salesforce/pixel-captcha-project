@@ -1,10 +1,79 @@
 <html>
+<head>
+    <style>
+        input[type=button] {
+            -moz-box-shadow: 2px 3px 0px 0px #899599;
+            -webkit-box-shadow: 2px 3px 0px 0px #899599;
+            box-shadow: 2px 3px 0px 0px #899599;
+            background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #bab1ba));
+            background:-moz-linear-gradient(top, #ededed 5%, #bab1ba 100%);
+            background:-webkit-linear-gradient(top, #ededed 5%, #bab1ba 100%);
+            background:-o-linear-gradient(top, #ededed 5%, #bab1ba 100%);
+            background:-ms-linear-gradient(top, #ededed 5%, #bab1ba 100%);
+            background:linear-gradient(to bottom, #ededed 5%, #bab1ba 100%);
+            filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#bab1ba',GradientType=0);
+            background-color:#ededed;
+            -moz-border-radius:42px;
+            -webkit-border-radius:42px;
+            border-radius:42px;
+            border:1px solid #d6bcd6;
+            display:inline-block;
+            cursor:pointer;
+            color:#000000;
+            font-family:Arial;
+            font-size:14px;
+            font-weight:bold;
+            padding:2px 10px;
+            text-decoration:none;
+            text-shadow:0px 0px 0px #e1e2ed;
+        }
+
+        select {
+            width: 100px;
+        }
+
+        td[class=configuration] {
+            color: blue;
+        }
+
+        td[class=success] {
+            color: green;
+        }
+
+        td[class=failure] {
+            color: red;
+        }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            border-bottom: 1px dotted black;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 250px;
+            background-color: darkgray;
+            text-align: left;
+            padding: 5px 5px;
+            border-radius: 10px;
+            position: absolute;
+            right: -250px;
+            z-index: 1;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+        }
+
+    </style>
+</head>
 <body>
 <p>
-    <b>To solve the CAPTCHA</b>
+    <b>To solve a CAPTCHA</b>
 <ul>
-    <li>Click on the black characters similar to the blue ones and hit submit</li>
-    <li>To clear your selection, click on reset (before you submit)</li>
+    <li>Click on all the black characters similar to the blue ones and hit submit</li>
+    <li>To clear your selection, click on 'Clear Clicks' (before you submit)</li>
     <li>You can submit solution for a CAPTCHA only once</li>
 </ul>
 </p>
@@ -34,7 +103,7 @@
                                    id="pixelcaptcha_submit_button"></input>
                         </td>
                         <td align="center">
-                            <input type="button" name="Reset" value="Reset Clicks" id="reset_solution_button"/>
+                            <input type="button" name="Reset" value="Clear Clicks" id="reset_solution_button"/>
                         </td>
                     </tr>
                     <tr>
@@ -48,10 +117,11 @@
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             </td>
             <td>
-                <table frame="box" width="300">
+                <table frame="box" width="400">
                     <tr>
-                        <td>
+                        <td class="tooltip">
                             Challenge Count
+                            <span class="tooltiptext">Number of challenge characters</span>
                         </td>
                         <td>
                             <select id="challengeCount">
@@ -63,8 +133,9 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>
+                        <td class="tooltip">
                             Response Count
+                            <span class="tooltiptext">Number of resposne characters</span>
                         </td>
                         <td>
                             <select id="responseCount">
@@ -76,8 +147,11 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>
-                            Orientation
+                        <td class="tooltip">
+                            CAPTCHA Orientation
+                            <span class="tooltiptext">
+                                Vertical or Horizontal CAPTCHA
+                            </span>
                         </td>
                         <td>
                             <select id="orientation">
@@ -87,10 +161,13 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>
-                            Unicode Code Points
+                        <td class="tooltip">
+                            Unicode Code Point Range
+                            <span class="tooltiptext">
+                                Unicode code point range (from plane 0) to pick challenge and response character values from.
+                            </span>
                         </td>
-                        <td>
+                        <td >
                             <select id="codePoints">
                                 <option value="0-255">0-255</option>
                                 <option value="0-4095">0-4095</option>
@@ -101,8 +178,11 @@
                     </tr>
                     <%--<tr><td>&nbsp;</td></tr>--%>
                     <tr>
-                        <td>
-                            Ordered Clicks
+                        <td class="tooltip" >Ordered Clicks
+                            <span class="tooltiptext">When true, the CAPTCHA solution should follow the order in which the challenge characters appears.
+                                For horizontal CAPTCHA, find the topmost challenge character among the response characters and click on it, and so on.
+                                For vertical CAPTCHA, find the leftmost challenge character among the response characters and click on it, and so on.
+                                </span>
                         </td>
                         <td>
                             <select id="ordered">
@@ -119,7 +199,7 @@
                     </tr>
                     <tr>
                         <td align="center" colspan="2">
-                            <input type="button" value="Configure" id="set_captcha_config"/>
+                            <input type="button" value="Set Configuration" id="set_captcha_config"/>
                         </td>
                     </tr>
                 </table>
@@ -129,7 +209,7 @@
                     </tr>
                 </table>
 
-                <table frame="box" width="300">
+                <table frame="box" width="400">
                     <tr>
                         <td id="info_label"> Captcha Config</td>
                         <td id="info_content"></td>
