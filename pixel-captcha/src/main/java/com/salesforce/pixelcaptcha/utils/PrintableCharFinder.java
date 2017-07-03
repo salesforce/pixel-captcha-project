@@ -72,6 +72,7 @@ public class PrintableCharFinder {
         String fontName = font.getFontName();
         String resourcePath = /*separator + */directory + separator + fontName.toLowerCase() + suffix;
         // https://stackoverflow.com/questions/2161054/where-to-place-and-how-to-read-configuration-resource-files-in-servlet-based-app
+        // The following two lines do not work either and return the same error as earlier. Essentially the error means that the resource file cannot be found and loaded
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         Scanner sc = new Scanner(classLoader.getResourceAsStream(resourcePath));
 
