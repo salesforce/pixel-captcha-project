@@ -13,6 +13,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.Arrays;
 
 import com.google.common.base.CharMatcher;
@@ -63,6 +65,16 @@ public class PrintableCharFinder {
 
 
     private void loadPrintableCharsFromResourceFile(Font font) {
+//        ClassLoader cl = ClassLoader.getSystemClassLoader();
+        ClassLoader cl = Thread.currentThread().getContextClassLoader();
+
+        URL[] urls = ((URLClassLoader)cl).getURLs();
+        System.out.println("################################################################");
+
+        for(URL url: urls){
+            System.out.println(url.getFile());
+        }
+
         int[] cPs = new int[SIZE];
         int index = 0;
         // The serif_printable.txt file currently has code points for all the printable characters for Serif font.
@@ -73,10 +85,12 @@ public class PrintableCharFinder {
         String resourcePath = /*separator + */directory + separator + fontName.toLowerCase() + suffix;
         // https://stackoverflow.com/questions/2161054/where-to-place-and-how-to-read-configuration-resource-files-in-servlet-based-app
         // The following two lines do not work either and return the same error as earlier. Essentially the error means that the resource file cannot be found and loaded
-        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-        Scanner sc = new Scanner(classLoader.getResourceAsStream(resourcePath));
+//        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+//        Scanner sc = new Scanner(classLoader.getResourceAsStream(resourcePath));
+        System.out.println(resourcePath);
 
-//        Scanner sc = new Scanner(PrintableCharFinder.class.getClassLoader().getResourceAsStream(resourcePath));
+        Scanner sc = new Scanner(PrintableCharFinder.class.getClassLoader().getResourceAsStream(resourcePath));
+        System.out.println("################################################################");
 //        Scanner sc = new Scanner(PrintableCharFinder.class.getResourceAsStream(directory + separator + fontName.toLowerCase() + suffix));
         while (sc.hasNextLine()) {
             String line = sc.nextLine();
