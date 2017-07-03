@@ -70,7 +70,12 @@ public class PrintableCharFinder {
         // This WILL change when physical and fancy fonts are used.
         // TODO: In future, I may try to use Font specific printable characters.
         String fontName = font.getFontName();
-        Scanner sc = new Scanner(PrintableCharFinder.class.getClassLoader().getResourceAsStream(directory + separator + fontName.toLowerCase() + suffix));
+        String resourcePath = /*separator + */directory + separator + fontName.toLowerCase() + suffix;
+        // https://stackoverflow.com/questions/2161054/where-to-place-and-how-to-read-configuration-resource-files-in-servlet-based-app
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        Scanner sc = new Scanner(classLoader.getResourceAsStream(resourcePath));
+
+//        Scanner sc = new Scanner(PrintableCharFinder.class.getClassLoader().getResourceAsStream(resourcePath));
 //        Scanner sc = new Scanner(PrintableCharFinder.class.getResourceAsStream(directory + separator + fontName.toLowerCase() + suffix));
         while (sc.hasNextLine()) {
             String line = sc.nextLine();
