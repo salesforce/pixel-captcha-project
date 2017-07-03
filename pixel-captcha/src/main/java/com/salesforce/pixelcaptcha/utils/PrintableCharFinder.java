@@ -65,33 +65,21 @@ public class PrintableCharFinder {
 
 
     private void loadPrintableCharsFromResourceFile(Font font) {
-//        ClassLoader cl = ClassLoader.getSystemClassLoader();
-        ClassLoader cl = Thread.currentThread().getContextClassLoader();
-
-        URL[] urls = ((URLClassLoader)cl).getURLs();
-        System.out.println("################################################################");
-
-        for(URL url: urls){
-            System.out.println(url.getFile());
-        }
-
         int[] cPs = new int[SIZE];
         int index = 0;
+
         // The serif_printable.txt file currently has code points for all the printable characters for Serif font.
         // It appears to work for the CAPTCHA at this time even when code points for other Fonts are provided.
         // This WILL change when physical and fancy fonts are used.
         // TODO: In future, I may try to use Font specific printable characters.
-        String fontName = font.getFontName();
-        String resourcePath = /*separator + */directory + separator + fontName.toLowerCase().split("\\.")[0] + suffix;
-        // https://stackoverflow.com/questions/2161054/where-to-place-and-how-to-read-configuration-resource-files-in-servlet-based-app
-        // The following two lines do not work either and return the same error as earlier. Essentially the error means that the resource file cannot be found and loaded
-//        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-//        Scanner sc = new Scanner(classLoader.getResourceAsStream(resourcePath));
-        System.out.println(resourcePath);
-
+        /*
+        The split is needed because different JDK versions return different values for getFontName. For example, some versions
+        return Serif, others return Serif.plain. This was causing issues when trying to load the serif_printable.txt between
+        the different JDK versions.
+         */
+        String fontName = font.getFontName().toLowerCase().split("\\.")[0];
+        String resourcePath = directory + separator + fontName + suffix;
         Scanner sc = new Scanner(PrintableCharFinder.class.getClassLoader().getResourceAsStream(resourcePath));
-        System.out.println("################################################################");
-//        Scanner sc = new Scanner(PrintableCharFinder.class.getResourceAsStream(directory + separator + fontName.toLowerCase() + suffix));
         while (sc.hasNextLine()) {
             String line = sc.nextLine();
             String[] ints = line.split(",");
