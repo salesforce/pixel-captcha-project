@@ -13,10 +13,11 @@
     <version>1.0-BETA</version>
     <packaging>war</packaging>
     <name>Pixel CAPTCHA Demo Web Application</name>
-    <url>http://maven.apache.org</url>
+    <!--<url>http://maven.apache.org</url>-->
     <properties>
         <spring.version>4.2.1.RELEASE</spring.version>
-        <jetty.version>9.3.3.v20150827</jetty.version>
+        <!--<jetty.version>9.3.3.v20150827</jetty.version>-->
+        <jetty.version>9.4.6.v20170531</jetty.version>
     </properties>
 
     <dependencies>

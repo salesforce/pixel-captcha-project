@@ -71,6 +71,7 @@ public class PrintableCharFinder {
         // TODO: In future, I may try to use Font specific printable characters.
         String fontName = font.getFontName();
         Scanner sc = new Scanner(PrintableCharFinder.class.getClassLoader().getResourceAsStream(directory + separator + fontName.toLowerCase() + suffix));
+//        Scanner sc = new Scanner(PrintableCharFinder.class.getResourceAsStream(directory + separator + fontName.toLowerCase() + suffix));
         while (sc.hasNextLine()) {
             String line = sc.nextLine();
             String[] ints = line.split(",");
