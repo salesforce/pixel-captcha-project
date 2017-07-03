@@ -72,8 +72,8 @@ public class PrintableCharFinder {
         // TODO: In future, I may try to use Font specific printable characters.
         /*
         The split is needed because different JDK versions return different values for getFontName. For example, some versions
-        return Serif, others return Serif.plain. This was causing issues when trying to load the serif_printable.txt between
-        the different JDK versions.
+        return Serif, others return Serif.plain. This was causing issues when trying to load the serif_printable.txt resource
+        between the different JDK versions.
          */
         String fontName = font.getFontName().toLowerCase().split("\\.")[0];
         String resourcePath = directory + separator + fontName + suffix;
