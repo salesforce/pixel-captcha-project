@@ -18,6 +18,7 @@ import java.util.Arrays;
 import com.google.common.base.CharMatcher;
 
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 /**
  * @author Gursev Singh Kalra @ Salesforce.com
@@ -27,6 +28,8 @@ import java.util.Scanner;
  *         A true at an index means that the character is not printable and will not leave a visible impression on the CAPTCHA
  */
 public class PrintableCharFinder {
+
+    private static final Logger LOGGER = Logger.getLogger( PrintableCharFinder.class.getName() );
     private static int CAPTCHA_SIZE = 100;
     private static int SIZE = 65536;
     private static int WHITE = -1;
@@ -75,9 +78,26 @@ public class PrintableCharFinder {
         return Serif, others return Serif.plain. This was causing issues when trying to load the serif_printable.txt resource
         between the different JDK versions.
          */
-        String fontName = font.getFontName().toLowerCase().split("\\.")[0];
-        String resourcePath = directory + separator + fontName + suffix;
-        Scanner sc = new Scanner(PrintableCharFinder.class.getClassLoader().getResourceAsStream(resourcePath));
+        String fontName;
+        String resourcePath;
+        Scanner sc;
+
+        if(System.getenv("codePointList") != null) {
+            resourcePath = System.getenv("codePointList");
+            try {
+                LOGGER.info(">>> Using file " + resourcePath + " to load unicode code points");
+                sc = new Scanner(new File(resourcePath));
+            } catch (FileNotFoundException ex) {
+                throw new RuntimeException("File not found or invalid " + System.getProperty("codePointList"));
+            }
+
+        } else {
+            LOGGER.info(">>> Using unicode code points from inbuilt resource file");
+            fontName = font.getFontName().toLowerCase().split("\\.")[0];
+            resourcePath = directory + separator + fontName + suffix;
+            sc = new Scanner(PrintableCharFinder.class.getClassLoader().getResourceAsStream(resourcePath));
+
+        }
         while (sc.hasNextLine()) {
             String line = sc.nextLine();
             String[] ints = line.split(",");
@@ -90,30 +110,63 @@ public class PrintableCharFinder {
         printableGlyphsInt = Arrays.copyOf(cPs, index);
     }
 
-    public static void main(String... args) throws FileNotFoundException {
+    public static void main(String... args) throws FileNotFoundException, InterruptedException {
+        LOGGER.info("Computing unicode code points for which your system has valid glyphs using " + font.getFontName() + " font");
 
-        if (true) {
-//            int max = 65535;
-            int max = 109999;
-            int min = 0;
-            int[] printables = computePrintableChars(font, min, max);
-            int breakAt = 20;
-            StringBuilder sb = new StringBuilder();
-            if (printables.length >= 1)
-                sb.append(printables[0] + ", ");
-            for (int i = 1; i < printables.length; i++) {
-                if (i % breakAt == 0) {
-                    sb.append(printables[i] + "\n");
+        int min = 0;
+        int max = 65535;
+        int value = 65535;
+        if(args.length != 0)
+            value = Integer.parseInt(args[0]);
 
-                } else {
-                    sb.append(printables[i] + ", ");
-                }
-            }
-            String home = System.getProperty("user.home");
-            PrintWriter pw = new PrintWriter(home + "/0xffffff-samples.txt");
-            pw.write(sb.toString());
-            pw.close();
+        if(value < 0 || value > 65535) {
+            LOGGER.warning("Using default maximum unicode value of 65535 now!");
+        } else {
+            max = value;
         }
+        int[] printables = computePrintableChars(font, min, max);
+        int breakAt = 20;
+        StringBuilder sb = new StringBuilder();
+
+        int i;
+        for (i = 0; i < printables.length - 1; i++) {
+            if (i % breakAt == 0 && i != 0) {
+                sb.append(printables[i] + "\n");
+
+            } else {
+                sb.append(printables[i] + ", ");
+            }
+        }
+        if(printables.length > 0)
+            sb.append(printables[i]);
+
+        PrintWriter pw = new PrintWriter(System.out);
+        pw.write(sb.toString());
+        pw.flush();
+        pw.close();
+        Thread.sleep(1000);
+
+        displayPrintableStats(printables);
+
+    }
+
+    private static void displayPrintableStats(int[] printables) {
+        int upto_255 = 0;
+        int upto_4095 = 0;
+        int upto_65535 = 0;
+
+        for(int i = 0; i < printables.length; i++) {
+            if(printables[i] >= 1 && printables[i] <=255)
+                upto_255++;
+            if(printables[i] >= 1 && printables[i] <=4095)
+                upto_4095++;
+            if(printables[i] >= 1 && printables[i] <=65535)
+                upto_65535++;
+        }
+        System.err.println("\n\nHere are the stats for number of characters available to be drawn on the CAPTCHA");
+        System.err.println("+ Number of printable characters available between 0 to 255 unicode character range is " + upto_255);
+        System.err.println("+ Number of printable characters available between 0 to 4095 unicode character range is " + upto_4095);
+        System.err.println("+ Number of printable characters available between 0 to 65535 unicode character range is " + upto_65535 + "\n");
 
     }
 
@@ -191,7 +244,7 @@ public class PrintableCharFinder {
             }
         }
 
-        printable = Arrays.copyOf(printable, printableCount - 1);
+        printable = Arrays.copyOf(printable, printableCount);
         return printable;
     }
 

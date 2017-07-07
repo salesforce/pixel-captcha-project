@@ -7,6 +7,10 @@
     <version>1.0-BETA</version>
     <packaging>pom</packaging>
     <name>Pixel CAPTCHA Parent Project</name>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
     <modules>
         <module>pixel-captcha</module>
         <module>demo-webapp</module>
