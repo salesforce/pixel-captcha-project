@@ -185,8 +185,8 @@ function setConfigurationStatus(jsonString) {
 }
 
 function setInstructions(json) {
-    var startOfMessage = "Click on the ";
-    var endOfMessage = " black characters similar to the blue characters and hit submit";
+    var startOfMessage = "It's easy...   Just \"click on the ";
+    var endOfMessage = " black characters\" similar to the blue ones and hit submit";
     var middle;
     switch(json.configuration.challengeCount) {
         case "2":
@@ -200,7 +200,7 @@ function setInstructions(json) {
             break;
     }
     var e = document.getElementById("howtosolve");
-    e.innerText = startOfMessage + "\"" + middle + "\"" + endOfMessage;
+    e.innerText = startOfMessage + middle + endOfMessage;
     debugger;
 }
 
