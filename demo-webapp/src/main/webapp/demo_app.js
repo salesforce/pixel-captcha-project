@@ -90,6 +90,7 @@ function captureClickCoordinates(event) {
 }
 
 function submitSolution() {
+    makeStatusGray();
     var payload = {};
     var id = document.getElementById("pixelcaptcha_id").value;
     payload["pixelcaptchaId"] = id;
@@ -139,6 +140,7 @@ retrieveCaptchaAndDraw();
 
 
 function setCaptchaConfig() {
+    makeStatusGray();
     var payload = {};
     var e;
     e = document.getElementById("challengeCount");
@@ -167,6 +169,7 @@ function setCaptchaConfig() {
 
 function setConfigurationStatus(jsonString) {
     var json = JSON.parse(jsonString);
+    setInstructions(json);
     var valueToWrite = JSON.stringify(json, null, 2);
 
     setTimeout(function() {
@@ -181,6 +184,26 @@ function setConfigurationStatus(jsonString) {
     }, 0);
 }
 
+function setInstructions(json) {
+    var startOfMessage = "Click on the ";
+    var endOfMessage = " black characters similar to the blue characters and hit submit";
+    var middle;
+    switch(json.configuration.challengeCount) {
+        case "2":
+            middle = "two";
+            break;
+        case "3":
+            middle = "three";
+            break;
+        case "4":
+            middle = "four";
+            break;
+    }
+    var e = document.getElementById("howtosolve");
+    e.innerText = startOfMessage + "\"" + middle + "\"" + endOfMessage;
+    debugger;
+}
+
 function setCaptchaConfigMethod() {
     var btn = document.getElementById("set_captcha_config");
     btn.onclick = setCaptchaConfig;
@@ -193,6 +216,7 @@ function setOnLoadMethod() {
 }
 
 function displayConfig() {
+    makeStatusGray();
     var request = new XMLHttpRequest();
     request.open("GET", "/getConfig");
     request.onreadystatechange = function () {
@@ -206,4 +230,16 @@ function displayConfig() {
 setCaptchaConfigMethod();
 setOnLoadMethod();
 
+function makeStatusGray() {
+    var td = document.getElementById("info_content");
+    var info_label = document.getElementById("info_label");
 
+    info_label.className = "waitingbold";
+    td.className = "waiting";
+
+}
+
+setTimeout(function() {
+    var e = document.getElementById("pixelcaptcha_form");
+    e.className = "show";
+}, 3000);

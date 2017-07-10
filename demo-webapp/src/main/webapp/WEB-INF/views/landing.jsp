@@ -58,6 +58,23 @@
             font-weight: bold;
         }
 
+        td[class=waiting] {
+            color: darkgray;
+        }
+
+        td[class=waitingbold] {
+            color: darkgray;
+            font-weight: bold;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        .show {
+            display: inline;
+        }
+
         /* https://www.w3schools.com/css/css_tooltip.asp */
         .tooltip {
             position: relative;
@@ -85,14 +102,9 @@
 </head>
 <body>
 <p>
-    <b>To solve a CAPTCHA</b>
-<ul>
-    <li>Click on all the black characters similar to the blue ones and hit submit</li>
-    <li>To clear your selection, click on 'Clear Clicks' (before you submit)</li>
-    <li>You can submit solution for a CAPTCHA only once</li>
-</ul>
+    <h3 id="howtosolve">Click on the two black characters similar to the blue characters and hit submit</h3>
 </p>
-<form id="pixelcaptcha_form">
+<form id="pixelcaptcha_form" class="hide">
     <br/>
     <table>
         <tr>
@@ -118,13 +130,22 @@
                                    id="pixelcaptcha_submit_button"></input>
                         </td>
                         <td align="center">
-                            <input type="button" name="Reset" value="Clear Clicks" id="reset_solution_button"/>
+                            <input type="button" name="Reset" value="Clear Selection" id="reset_solution_button"/>
                         </td>
                     </tr>
                     <tr>
                         <td>&nbsp;</td>
                     </tr>
                     <tr>
+                        <td colspan="5">
+                            <b>Additional Info</b>
+                            <ul>
+                                <li>'Clear' lets you clear your solution before submitting</li>
+                                <li>Interesting configuration options on the top right</li>
+                                <li>Scroll over the dotted text for more info</li>
+                                <li>Get source <a href="https://github.com/salesforce/pixel-captcha-project"> here</a></li>
+                            </ul>
+                        </td>
                     </tr>
                 </table>
             </td>
@@ -156,7 +177,7 @@
                     <tr>
                         <td class="tooltip">
                             Response Count
-                            <span class="tooltiptext">Number of resposne characters</span>
+                            <span class="tooltiptext">Number of response characters</span>
                         </td>
                         <td>
                             <select id="responseCount">
@@ -245,6 +266,7 @@
     </table>
 
 </form>
+
 <script src="demo_app.js"></script>
 </body>
 </html>
