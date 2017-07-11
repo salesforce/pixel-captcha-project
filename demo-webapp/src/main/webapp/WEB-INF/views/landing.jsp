@@ -158,12 +158,14 @@
             <td colspan="5">
                 <br/>
                 <br/>
-                <b>Do more?</b>
+                <b>What else?</b>
                 <ul>
                     <li>'Clear Selection' lets you clear and reattempt before submitting</li>
-                    <li>Interesting CAPTCHA configuration options on the top right. Hover over the dotted text for more info. Totally try those out</li>
-                    <li>Get source from <a href="https://github.com/salesforce/pixel-captcha-project"> here</a></li>
-                    <li>Want to do some reading? I've blogged about it <a href=""> here</a></li>
+                    <li>Interesting CAPTCHA configuration options on the top right. It's a fun experiment </li>
+                    <li>Hover over the dotted text for more info. Totally try out the different configurations </li>
+                    <li>It's open source. Get code from <a href="https://github.com/salesforce/pixel-captcha-project"> here</a></li>
+                    <li>Got some time? Read the <a href="https://github.com/gursev/whitepapers/blob/master/PixelCAPTCHA_Whitepaper.pdf">whitepaper</a> </li>
+                    <li>Want to do quick reading? I'll soon blog about it</li>
                 </ul>
             </td>
         </tr>

@@ -239,7 +239,26 @@ function makeStatusGray() {
 
 }
 
-setTimeout(function() {
-    var e = document.getElementById("pixelcaptcha_form");
-    e.className = "show";
-}, 3000);
+
+/*
+This function exists only to highlight the instructions at the top of the page for the first time when a user loads the page.
+Just want to avoid the 3 second delay each time a user refreshes the page.
+ */
+function highlightInstructions() {
+    var timeout;
+    if(document.cookie.toString().indexOf("visited") != -1) {
+        timeout = 0;
+    } else {
+        document.cookie = "visited=whatever";
+        timeout = 3000;
+    }
+
+    setTimeout(
+        function() {
+        var e = document.getElementById("pixelcaptcha_form");
+        e.className = "show";
+        }, timeout
+    );
+}
+
+highlightInstructions();
