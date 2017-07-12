@@ -47,7 +47,7 @@
                 <table frame="box" width="400">
                     <tr>
                         <td align="left" colspan="2">
-                            <b> CAPTCHA Configuration Options</b>
+                            <b> Set your CAPTCHA configuration</b>
                         </td>
                     </tr>
 
@@ -130,11 +130,11 @@
                             &nbsp;
                         </td>
                     </tr>
-                    <tr>
-                        <td align="center" colspan="2">
-                            <input type="button" value="Set Configuration" id="set_captcha_config"/>
-                        </td>
-                    </tr>
+                    <%--<tr>--%>
+                        <%--<td align="center" colspan="2">--%>
+                            <%--<input type="button" value="Set Configuration" id="set_captcha_config"/>--%>
+                        <%--</td>--%>
+                    <%--</tr>--%>
                 </table>
                 <table>
                     <tr>
@@ -161,8 +161,8 @@
                 <b>What else?</b>
                 <ul>
                     <li>'Clear Selection' lets you clear and reattempt before submitting</li>
-                    <li>Interesting CAPTCHA configuration options on the top right. It's a fun experiment </li>
-                    <li>Hover over the dotted text for more info. Totally try out the different configurations </li>
+                    <li>It's a fun experiment. Interesting CAPTCHA configuration options on the top right</li>
+                    <li>Hover over the dotted text for more info. Do try out the different configurations </li>
                     <li>It's open source. Get code from <a href="https://github.com/salesforce/pixel-captcha-project"> here</a></li>
                     <li>Got some time? Read the <a href="https://github.com/gursev/whitepapers/blob/master/PixelCAPTCHA_Whitepaper.pdf">whitepaper</a> </li>
                     <li>Want to do quick reading? I'll soon blog about it</li>

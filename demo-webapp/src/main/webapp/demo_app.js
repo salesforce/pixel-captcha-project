@@ -16,6 +16,12 @@ function initPixelcaptcha() {
     document.getElementById("pixelcaptcha_canvas").onclick = captureClickCoordinates;
     document.getElementById("new_captcha_button").onclick = retrieveCaptchaAndDraw;
     document.getElementById("reset_solution_button").onclick = resetClientState;
+    document.getElementById("challengeCount").onchange = setCaptchaConfig;
+    document.getElementById("responseCount").onchange = setCaptchaConfig;
+    document.getElementById("orientation").onchange = setCaptchaConfig;
+    document.getElementById("codePoints").onchange = setCaptchaConfig;
+    document.getElementById("ordered").onchange = setCaptchaConfig;
+
 
     captchaImage = new Image();
     canvas = document.getElementById('pixelcaptcha_canvas');
@@ -115,13 +121,13 @@ function displayResponse(label, responseText) {
     if(json.status === "success") {
         info_label.className = "successbold";
         verificationStatus.className = "success";
+        info_label.innerText = "Correct!";
     } else if (json.status === "failure") {
         info_label.className = "failurebold";
         verificationStatus.className = "failure";
+        info_label.innerText = "Incorrect!";
     }
-
     verificationStatus.innerText = JSON.stringify(json, null, 2);
-    info_label.innerText = label;
 }
 
 function setSubmitMethod() {
@@ -161,6 +167,7 @@ function setCaptchaConfig() {
     request.onreadystatechange = function () {
         if (request.readyState == 4 && request.status == 200) {
             setConfigurationStatus(request.responseText);
+            retrieveCaptchaAndDraw();
         }
     }
     request.send(JSON.stringify(payload));
@@ -204,10 +211,10 @@ function setInstructions(json) {
     debugger;
 }
 
-function setCaptchaConfigMethod() {
-    var btn = document.getElementById("set_captcha_config");
-    btn.onclick = setCaptchaConfig;
-}
+//function setCaptchaConfigMethod() {
+//    var btn = document.getElementById("set_captcha_config");
+//    btn.onclick = setCaptchaConfig;
+//}
 
 function setOnLoadMethod() {
     window.addEventListener("load", function () {
@@ -227,7 +234,7 @@ function displayConfig() {
     request.send();
 }
 
-setCaptchaConfigMethod();
+//setCaptchaConfigMethod();
 setOnLoadMethod();
 
 function makeStatusGray() {
