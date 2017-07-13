@@ -53,7 +53,7 @@ com.salesforce.pixelcaptcha.gui.ConsumerJFrame inside pixel-captcha project is a
 * The demo-webapp project provides an example implementation on how to consume the CAPTCHA library
 * CAPTCHA Code is in the pixel-captcha directory.
 
-##Dependencies
+## Dependencies
 The following are the current dependencies for the project. Some of them were used to reduce the development effort. The dependencies changed be changed or removed based on the community feedback.
 
 ### pixel-captcha: The main library that you will consume
