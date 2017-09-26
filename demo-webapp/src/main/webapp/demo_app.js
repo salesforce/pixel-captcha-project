@@ -208,7 +208,6 @@ function setInstructions(json) {
     }
     var e = document.getElementById("howtosolve");
     e.innerText = startOfMessage + middle + endOfMessage;
-    debugger;
 }
 
 //function setCaptchaConfigMethod() {

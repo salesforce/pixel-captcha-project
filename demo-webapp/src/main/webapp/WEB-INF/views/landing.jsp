@@ -1,5 +1,6 @@
 <html>
 <head>
+    <title>PixelCAPTCHA demo application</title>
     <link rel="stylesheet" type="text/css" href="demo_app_css.css">
 </head>
 <body>
