@@ -158,7 +158,7 @@ public class LandingController {
 
         p.setProperty("codePoints", config.getCodePoints());
         p.setProperty("challengeCount", config.getChallengeCount());
-        p.setProperty("order", config.getOrdered());
+        p.setProperty("ordered", config.getOrdered());
         p.setProperty("responseCount", config.getResponseCount());
         pcp.init(p);
 
